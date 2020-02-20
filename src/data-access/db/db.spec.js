@@ -8,7 +8,9 @@ if (process.env.NODE_ENV !== 'production'){
 
 describe('database connection', () => {
     it('should connect to database', async () => {
-        const dbConnection = makeDBConnection({orm: Sequelize, url: process.env.DB_URI})
+        const makeConnection = makeDBConnection({ORM: Sequelize, url: process.env.DB_URI})
+        const dbConnection = makeConnection()
+
         const isConnected = await dbConnection.connect()
         assert.equal(isConnected, true)  
     });
