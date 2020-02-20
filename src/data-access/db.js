@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize')
-
 module.exports = ({orm, url}) => {
     async function connect(){
         const connection = new orm(url)
