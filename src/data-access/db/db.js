@@ -1,10 +1,9 @@
 module.exports = ({ORM, url}) => {
+    
+    const connection = new ORM(url)
 
-    return () => {
-
-        const connection = new ORM(url)
-        
-        async function connect(){
+    return () => {    
+        async function isConnect(){
             try {
                 const isConnected = await connection.authenticate()
     
@@ -23,7 +22,7 @@ module.exports = ({ORM, url}) => {
         }
     
         return Object.freeze({
-            connect,
+            isConnect,
             Model,
             define,
             ORM
