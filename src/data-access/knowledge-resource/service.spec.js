@@ -1,5 +1,5 @@
 const assert = require('assert')
-const makeKnowledgeResourceModel = require('./knowledge-resource.js')
+const makeKnowledgeResourceModel = require('./model')
 const makeKnowledgeResourceService = require('./service')
 const {define, ORM} = require('../db/')
 
