@@ -1,9 +1,7 @@
-const makeKnowledgeResource = require('../../entities/knowledge-resources')
-const makeCreateOneKnowledgeResource = require('./create-one-knowledge-resource')
-const {service} = require('../../data-access/knowledge-resource')
+const {createOneKnowledgeResource} = require('./index')
+
 describe('create knowledge resource', () => {
     it('should create new kr in db', async (done) => {
-        const createOneKnowledgeResource = makeCreateOneKnowledgeResource({service})
         const payload  = {
             title: "This is title",
             content: "this is some content"
@@ -23,7 +21,6 @@ describe('create knowledge resource', () => {
     });
 
     it('should fail if title missing', async (done) => {
-        const createOneKnowledgeResource = makeCreateOneKnowledgeResource({service})
         const payload  = {
             title: null,
             content: "this is some content"
