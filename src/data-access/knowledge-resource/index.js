@@ -1,5 +1,5 @@
 const {define, ORM} = require('../db/')
-const makeKnowledgeResourceSequelizeModel = require('./model.js/index.js')
+const makeKnowledgeResourceSequelizeModel = require('./model.js')
 const makeKnowledgeResourceService = require('./service')
 
 const KnowledgeResource = makeKnowledgeResourceSequelizeModel({define, ORM})
