@@ -3,9 +3,7 @@ const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
 
-const { postKnowledgeResource } = require('./controllers/knowledge-resource')
-
-const makeCallback = require('./express-callback')
+const knowledgeResourceRouter = require('./express-routers')({express})
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
@@ -19,7 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 
 app.use(helmet())
-app.use('/knowledge-resources', makeCallback(postKnowledgeResource))
+
+app.use('/knowledge-resources', knowledgeResourceRouter)
 
 
 app.use((error, req, res, next) => {
@@ -32,7 +31,7 @@ app.use((error, req, res, next) => {
     }
 
     const {message} = serializeError(error)
-    
+
     return res.json({errors: [
         {message}
     ]})
