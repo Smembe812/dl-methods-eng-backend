@@ -11,8 +11,7 @@ describe('create knowledge resource', () => {
             const {dataValues: {title, content}} = await createOneKnowledgeResource(payload)
             
             expect({title, content}).toStrictEqual(payload)
-
-            console.log({title, content})
+            
             done()
         } catch (error) {
             done(error)
