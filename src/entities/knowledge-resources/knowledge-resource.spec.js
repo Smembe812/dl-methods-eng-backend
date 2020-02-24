@@ -1,5 +1,6 @@
 const assert = require('assert')
 const makeKnowledgeResource = require('./')
+const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
 describe('knowlege resource factory', () => {
     it('must build KnowledgeResource factory', () => {
@@ -7,8 +8,8 @@ describe('knowlege resource factory', () => {
     })
 
     it('must have title', async (done) => {
-
-        const payload = {title: null}
+        const {title, content} = makeFakeKnowledgeResource()
+        const payload = {title: null, content}
 
         await expect(makeKnowledgeResource(payload))
             .rejects
@@ -17,7 +18,8 @@ describe('knowlege resource factory', () => {
     });
 
     it('must have content', async (done) => {
-        const payload = {content: null, title: "this is title"}
+        const {title, content} = makeFakeKnowledgeResource()
+        const payload = {title, content: null}
 
         await expect(makeKnowledgeResource(payload))
             .rejects
@@ -26,18 +28,12 @@ describe('knowlege resource factory', () => {
     });
     
     it('should create knowledge resource', async (done) => {
-        const payload = {
-            title: "This is title",
-            content: "this is some content"
-        }
-
-        const {title, content} = await makeKnowledgeResource(payload)
-
-        expect({title, content}).toStrictEqual(payload)
+        const {title, content} = makeFakeKnowledgeResource()
+        const payload = {title, content}
         
         await expect(makeKnowledgeResource(payload))
             .resolves
-            .toMatchObject({})
+            .toStrictEqual({title, content})
         
         done()
     });

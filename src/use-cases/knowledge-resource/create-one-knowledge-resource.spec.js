@@ -1,11 +1,9 @@
 const {createOneKnowledgeResource} = require('./index')
+const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
 describe('create knowledge resource', () => {
-    it('should create new kr in db', async (done) => {
-        const payload  = {
-            title: "This is title",
-            content: "this is some content"
-        }
+    it('should create new knkowledge resource in db', async (done) => {
+        const payload = makeFakeKnowledgeResource()
 
         try {
             const {dataValues: {title, content}} = await createOneKnowledgeResource(payload)
@@ -19,22 +17,24 @@ describe('create knowledge resource', () => {
 
     });
 
-    it('should fail if title missing', async (done) => {
-        const payload  = {
-            title: null,
-            content: "this is some content"
-        }
+    it('must fail if title missing', async (done) => {
+        const {title, content} = makeFakeKnowledgeResource()
+        const payload = {title: null, content}
 
-        try {
-
-            await expect(createOneKnowledgeResource(payload))
+        await expect(createOneKnowledgeResource(payload))
             .rejects
             .toMatchObject({message:"a knowledge resource must have title"})
+        done()
+    });
 
-            done()
-        } catch (error) {
-            done(error)
-        }
+    it('must fail if content missing', async (done) => {
+        const {title, content} = makeFakeKnowledgeResource()
+        const payload = {title, content: null}
+
+        await expect(createOneKnowledgeResource(payload))
+            .rejects
+            .toMatchObject({message:"a knowledge resource must have some content"})
+        done()
     });
     
     
