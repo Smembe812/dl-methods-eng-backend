@@ -3,7 +3,7 @@ const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
 
-const knowledgeResourceRouter = require('./express-routers')({express})
+const apiRoutes = require('./express-routers')({express})
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
@@ -18,7 +18,7 @@ app.use(cors())
 
 app.use(helmet())
 
-app.use('/knowledge-resources', knowledgeResourceRouter)
+app.use('/api', apiRoutes)
 
 
 app.use((error, req, res, next) => {
