@@ -1,9 +1,9 @@
 function makeExpressCallback(controller){
     return (req, res, next) => {
-        const {params, query, method, path} = req
+        const {params, query, method, path, body} = req
 
         const httpRequest = {
-            params, query, method, path
+            params, query, method, path, body
         }
 
         controller(httpRequest)
@@ -16,6 +16,8 @@ function makeExpressCallback(controller){
                     return res.json(httpResponse)
                 }
             })
-            .catch( error = next(error))
+            .catch( error => next(error))
     }
-}  
+} 
+
+module.exports = makeExpressCallback

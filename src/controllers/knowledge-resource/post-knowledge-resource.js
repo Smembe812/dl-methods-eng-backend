@@ -1,14 +1,14 @@
 module.exports = ({createOneKnowledgeResource}) => {
     return async (httpRequest) => {
         try {
-            const {dataValues: {title, content}} = await createOneKnowledgeResource(kr)
+            const {body} = httpRequest
+            const {dataValues: {title, content}} = await createOneKnowledgeResource(body)
     
             return Promise.resolve({
                 status: 201,
                 knowledgeResource: {title, content}
             })
         } catch (error) {
-            console.log(error)
             return Promise.reject(error)
         }
     }

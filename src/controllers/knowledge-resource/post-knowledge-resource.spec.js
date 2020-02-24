@@ -16,7 +16,7 @@ describe('post knowledge resource controller', () => {
             }
         }
 
-        await expect(postKnowledgeResource(fakeKnowledgeResourcePost))
+        await expect(postKnowledgeResource({body: fakeKnowledgeResourcePost}))
                     .resolves
                     .toStrictEqual(expected)
     })
@@ -27,7 +27,7 @@ describe('post knowledge resource controller', () => {
             content: "this is some content"
         }
 
-        await expect(postKnowledgeResource(fakeKnowledgeResourcePost))
+        await expect(postKnowledgeResource({body: fakeKnowledgeResourcePost}))
                     .rejects
                     .toEqual(expect.any(Error))
     })
