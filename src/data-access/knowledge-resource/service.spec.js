@@ -22,4 +22,5 @@ describe('knowledge resource data query', () => {
         }
     });
 
+    it.todo('get knowledge resources')
 });

@@ -1,5 +1,10 @@
 const makeKnowledgeResource = require('../../entities/knowledge-resources')
 
+/**
+ * factory for creating a knowledge resource
+ * @param {object} service - Database handler
+ * @return {Promise} - Promise of created instance
+ */
 module.exports = ({service}) => {
     return async function createOneKnowledgeResource(payload) {
         try {
