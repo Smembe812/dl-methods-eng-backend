@@ -5,6 +5,8 @@ const cors = require('cors')
 
 const apiRoutes = require('./express-routers')({express})
 
+// const makeServer = require('./server')
+
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
@@ -37,10 +39,4 @@ app.use((error, req, res, next) => {
     ]})
 })
 
-
-app.listen(PORT, () => {
-    console.log(`server up at ${PORT}`) 
-  
-})
-
-console.log(process.env.DB_URI)
+module.exports = app
