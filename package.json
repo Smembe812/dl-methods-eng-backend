@@ -17,6 +17,7 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "jest": "^25.1.0",
+    "jsdoc": "^3.6.3",
     "nodemon": "^2.0.2"
   },
   "dependencies": {

@@ -1,8 +1,8 @@
 const { postKnowledgeResource } = require('../controllers/knowledge-resource')
 
 /**
- * @router [express router instance dependency]
- * @makeCallback [express callback dependency]
+ * @param {object} router - The express router instance.
+ * @param {function} makeCallback - Express HTTPRequest callback
  */
 module.exports = ({router, makeCallback}) => {      
     router.post('/', makeCallback(postKnowledgeResource))
