@@ -13,7 +13,7 @@ describe('Knowledge Resource routes', () => {
 
     afterEach( async (done) => await server.close(done));
 
-    it('should post new kr', async (done) => {
+    it('should post new knowledge resource', async (done) => {
         request(server)
             .post('/api/knowledge-resources')
             .send({
@@ -28,4 +28,22 @@ describe('Knowledge Resource routes', () => {
             })
     });
     
+
+    it('should get all knowledge resources', async (done) => {
+        request(server)
+            .post('/api/knowledge-resources')
+            .send({
+                title: 'This is title',
+                content: "this is some content"
+            })
+            .then(()=>{
+
+                request(server).get('/api/knowledge-resources')
+                .end((error, response) => {
+                    console.log(response)
+                    expect(response.statusCode).toBe(200)
+                    done()
+                })
+            })
+    })
 });

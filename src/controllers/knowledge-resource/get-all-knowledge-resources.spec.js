@@ -1,6 +1,6 @@
 const {getAllKnowledgeResourcesController, postKnowledgeResource} = require('./')
 
-describe('get all knowledge resource controller', () => {
+describe('getall knowledge resource controller', () => {
     
     beforeEach( async (done) => {
         

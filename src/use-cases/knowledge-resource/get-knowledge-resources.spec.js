@@ -1,11 +1,18 @@
-const { getAllKnowledgeResources } = require('./index')
+const { getAllKnowledgeResources,createOneKnowledgeResource } = require('./index')
+const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
 describe('get knowledge resources', () => {
     it('should get all knowledge resources', async (done) => {
-        const knowledgeResources = await getAllKnowledgeResources()
+        const payload = makeFakeKnowledgeResource()
 
-        expect(knowledgeResources.length > 0).toBe((true))
-        done()
+        createOneKnowledgeResource(payload)
+            .then(async () => {
+                const knowledgeResources = await getAllKnowledgeResources()
+        
+                expect(knowledgeResources.length > 0).toBe((true))
+                done()
+
+            })
     })
 
 

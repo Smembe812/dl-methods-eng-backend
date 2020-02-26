@@ -1,5 +1,5 @@
 module.exports = ({getAllKnowledgeResources}) => {
-    return async () => {
+    return async (httpRequest) => {
         try {
             return await getAllKnowledgeResources()
         } catch (error) {

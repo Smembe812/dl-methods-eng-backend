@@ -1,4 +1,4 @@
-const { postKnowledgeResource } = require('../controllers/knowledge-resource')
+const { postKnowledgeResource, getAllKnowledgeResourcesController } = require('../controllers/knowledge-resource')
 
 /**
  * @param {object} router - The express router instance.
@@ -8,6 +8,7 @@ const { postKnowledgeResource } = require('../controllers/knowledge-resource')
  */
 module.exports = ({router, makeCallback}) => {      
     router.post('/', makeCallback(postKnowledgeResource))
+    router.get('/', makeCallback(getAllKnowledgeResourcesController))
 
     return router
 }
