@@ -21,7 +21,7 @@ describe('knowledge resources use cases', () => {
         createOneKnowledgeResource(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
-                
+
                 const knowledgeResource = await getByIDKnowledgeResources(id)
                 
                 expect(dataValues).toStrictEqual((knowledgeResource.dataValues))
@@ -31,4 +31,8 @@ describe('knowledge resources use cases', () => {
     })
 
     it.todo('query knowledge resources')
+
+    it.todo('should delete knowledge resource')
+
+    it.todo('should update knowledge resource')
 });

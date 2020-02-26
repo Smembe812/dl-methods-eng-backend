@@ -41,7 +41,7 @@ describe('knowledge resource data-access', () => {
         const input = makeFakeKnowledgeResource()
         const {dataValues: {id}, dataValues} = await service.createOne(input)
         const knowledgeResource = await service.getByID(id)
-        
+
         expect(knowledgeResource.dataValues).toStrictEqual((dataValues))
 
         //expect({title, content}).toStrictEqual(input)
@@ -51,4 +51,6 @@ describe('knowledge resource data-access', () => {
     it.todo('should update a knowledge resource')
 
     it.todo('should delete a knowledge resource')
+
+    it.todo('should query/filter knowledge resource')
 });
