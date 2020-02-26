@@ -21,10 +21,10 @@ describe('knowledge resources use cases', () => {
         createOneKnowledgeResource(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
-                console.log(dataValues)
+                
                 const knowledgeResource = await getByIDKnowledgeResources(id)
-                console.log(knowledgeResource)
-                expect(dataValues).toMatchStrict((knowledgeResource))
+                
+                expect(dataValues).toStrictEqual((knowledgeResource.dataValues))
                 done()
 
             })
