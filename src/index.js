@@ -5,12 +5,9 @@ const cors = require('cors')
 
 const apiRoutes = require('./express-routers')({express})
 
-// const makeServer = require('./server')
-
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
-const PORT = process.env.PORT || '3300'
 
 const app = express()
 
