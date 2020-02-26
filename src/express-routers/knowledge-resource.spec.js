@@ -40,7 +40,6 @@ describe('Knowledge Resource routes', () => {
 
                 request(server).get('/api/knowledge-resources')
                 .end((error, response) => {
-                    console.log(response)
                     expect(response.statusCode).toBe(200)
                     done()
                 })

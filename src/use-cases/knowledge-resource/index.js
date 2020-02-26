@@ -5,7 +5,11 @@ const createOneKnowledgeResource = makeCreateOneKnowledgeResource({service})
 const makeGetAllKnowledgeResources = require('./get-all-knowledge-resources') 
 const getAllKnowledgeResources = makeGetAllKnowledgeResources({service})
 
+const makeGetByIDKnowledgeResources = require('./get-by-id-knowledge-resource')
+const getByIDKnowledgeResources = makeGetByIDKnowledgeResources({service})
+
 module.exports = {
     createOneKnowledgeResource,
-    getAllKnowledgeResources
+    getAllKnowledgeResources,
+    getByIDKnowledgeResources
 }

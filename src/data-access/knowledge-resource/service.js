@@ -17,8 +17,17 @@ module.exports = (KnowledgeResource) => {
         }
     }
 
+    async function getByID(id){
+        try {
+            return await KnowledgeResource.findOne({ where: {id}})
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return Object.freeze({
         createOne,
-        getAll
+        getAll,
+        getByID
     })
 }
