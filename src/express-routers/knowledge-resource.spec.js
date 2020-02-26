@@ -21,7 +21,6 @@ describe('Knowledge Resource routes', () => {
                 content: "this is some content"
             })
             .end((error, response) => {
-                console.log(response.statusCode)
                 const {dataValues: {title, content}} = response.body
                 expect(response.statusCode).toBe(201)
                 expect({title, content}).toStrictEqual({
@@ -45,6 +44,25 @@ describe('Knowledge Resource routes', () => {
                 request(server).get('/api/knowledge-resources')
                 .end((error, response) => {
                     expect(response.statusCode).toBe(200)
+                    done()
+                })
+            })
+    })
+
+    it('should get by id knowledge resources', async (done) => {
+        request(server)
+            .post('/api/knowledge-resources')
+            .send({
+                title: 'This is title',
+                content: "this is some content"
+            })
+            .then((response)=>{
+                const {dataValues} = response.body
+
+                request(server).get(`/api/knowledge-resources/${dataValues.id}`)
+                .end((error, response) => {
+                    expect(response.statusCode).toBe(200)
+                    expect(response.body).toStrictEqual(dataValues)
                     done()
                 })
             })

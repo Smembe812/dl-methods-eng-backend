@@ -1,5 +1,5 @@
 module.exports = ({getByIDKnowledgeResources}) => {
-    return async (httpRequest) => {
+    return async (httpRequest, next) => {
         const {params: {id}} = httpRequest
         try {
             return await getByIDKnowledgeResources(id)

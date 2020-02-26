@@ -6,8 +6,7 @@ function makeExpressCallback(controller){
             params, query, method, path, body
         }
 
-
-        controller(httpRequest)
+        controller(httpRequest, next)
             .then( httpResponse => {
                 if (httpResponse.status){
                     return res.status(httpResponse.status).json(httpResponse)

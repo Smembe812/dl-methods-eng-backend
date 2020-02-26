@@ -1,5 +1,5 @@
 module.exports = ({createOneKnowledgeResource}) => {
-    return async (httpRequest) => {
+    return async (httpRequest, next) => {
         try {
             const {body} = httpRequest
             const {dataValues} = await createOneKnowledgeResource(body)
