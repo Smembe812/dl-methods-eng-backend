@@ -8,7 +8,17 @@ module.exports = (KnowledgeResource) => {
         }
     }
 
+
+    async function getAll(){
+        try {
+            return await KnowledgeResource.findAll()
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return Object.freeze({
-        createOne
+        createOne,
+        getAll
     })
 }

@@ -22,5 +22,21 @@ describe('knowledge resource data query', () => {
         }
     });
 
-    it.todo('get knowledge resources')
+    it('should get all knowledge resources', async (done) => {
+        const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
+        const service = makeKnowledgeResourceService(KnowledgeResource)
+        
+        const knowledgeResources = await service.getAll()
+        
+        expect(knowledgeResources.length > 0).toBe((true))
+
+        //expect({title, content}).toStrictEqual(input)
+        done()
+    })
+
+    it.todo('should get one knowledge resource')
+
+    it.todo('should update a knowledge resource')
+
+    it.todo('should delete a knowledge resource')
 });
