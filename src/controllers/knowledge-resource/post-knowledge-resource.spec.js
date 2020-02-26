@@ -1,7 +1,7 @@
 const {postKnowledgeResource} = require('./')
 
 describe('post knowledge resource controller', () => {
-    it('succesfully post new knowledge resource', async () => {
+    it('succesfully post new knowledge resource', async (done) => {
 
         const fakeKnowledgeResourcePost = {
             title: "This is title",
@@ -9,16 +9,17 @@ describe('post knowledge resource controller', () => {
         }
 
         const expected  = {
-            status: 201,
-            knowledgeResource: {
-                title: "This is title",
-                content: "this is some content"
-            }
+            title: "This is title",
+            content: "this is some content"
         }
 
-        await expect(postKnowledgeResource({body: fakeKnowledgeResourcePost}))
-                    .resolves
-                    .toStrictEqual(expected)
+        postKnowledgeResource({body: fakeKnowledgeResourcePost})
+            .then(({dataValues: {title, content}}) => {
+        
+                expect({title, content}).toStrictEqual(expected)
+                done()
+            })
+        
     })
     it('should error at failiure', async () => {
 

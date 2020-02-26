@@ -21,9 +21,13 @@ describe('Knowledge Resource routes', () => {
                 content: "this is some content"
             })
             .end((error, response) => {
+                console.log(response.statusCode)
+                const {dataValues: {title, content}} = response.body
                 expect(response.statusCode).toBe(201)
-                expect(response.body).toStrictEqual({ status: 201,
-                    knowledgeResource: { title: 'This is title', content: 'this is some content' } })
+                expect({title, content}).toStrictEqual({
+                    title: 'This is title',
+                    content: "this is some content"
+                })
                 done()
             })
     });
