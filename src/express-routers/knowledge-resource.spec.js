@@ -99,4 +99,57 @@ describe('Knowledge Resource routes', () => {
                 })
             })
     })
+
+    it('should delete by id knowledge resources', async (done) => {
+        request(server)
+            .post('/api/knowledge-resources')
+            .send({
+                title: 'This is title',
+                content: "this is some content"
+            })
+            .then((response)=>{
+                const {dataValues: {id, createdAt}} = response.body
+
+                request(server)
+                .delete(`/api/knowledge-resources/${id}`)
+                .end((error, response) => {
+                    const expected = {deleted: true, status: 201}
+                    // {
+                    //     message: "could not find the knowledge resource",
+                    //     status: 404,
+                    // }
+
+                    const received = response.body
+                    expect(response.statusCode).toBe(201)
+                    expect(received).toStrictEqual(expected)
+                    done()
+                })
+            })
+    })
+
+    it('should fail to delete by id knowledge resources', async (done) => {
+        request(server)
+            .post('/api/knowledge-resources')
+            .send({
+                title: 'This is title',
+                content: "this is some content"
+            })
+            .then((response)=>{
+                const {dataValues: {id, createdAt}} = response.body
+
+                request(server)
+                .delete(`/api/knowledge-resources/1000`)
+                .end((error, response) => {
+                    const expected = {
+                        message: "could not find the knowledge resource",
+                        status: 404,
+                    }
+
+                    const received = response.body
+                    expect(response.statusCode).toBe(404)
+                    expect(received.errors[0]).toMatchObject(expected)
+                    done()
+                })
+            })
+    })
 });

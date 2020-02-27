@@ -1,7 +1,8 @@
 const { postKnowledgeResource, 
         getAllKnowledgeResourcesController, 
         getByIDKnowledgeResourcesController,
-        updateOneKnowledgeResource } = require('../controllers/knowledge-resource')
+        updateOneKnowledgeResource,
+        deleteOneKnowledgeResourceContoller } = require('../controllers/knowledge-resource')
 
 /**
  * @param {object} router - The express router instance.
@@ -14,6 +15,7 @@ module.exports = ({router, makeCallback}) => {
     router.get('/', makeCallback(getAllKnowledgeResourcesController))
     router.get('/knowledge-resources/:id', makeCallback(getByIDKnowledgeResourcesController))
     router.put('/knowledge-resources/:id', makeCallback(updateOneKnowledgeResource))
+    router.delete('/knowledge-resources/:id', makeCallback(deleteOneKnowledgeResourceContoller))
     
     return router
 }
