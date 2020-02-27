@@ -1,8 +1,8 @@
-const makeKnowledgeResource = require('../../entities/knowledge-resources')
-
 /**
  * factory for creating a knowledge resource
  * @param {object} service - Database handler
+ * @param {Function} getByIDKnowledgeResources - Get a knowledge resource by id use case
+ * @param {Constructor} KRError - Knowledge Resource error constructor
  * @return {Promise} - Promise of created instance
  */
 module.exports = ({service, getByIDKnowledgeResources, KRError}) => {
