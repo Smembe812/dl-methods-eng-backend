@@ -1,8 +1,7 @@
 const { 
     getAllKnowledgeResources, 
     createOneKnowledgeResource, 
-    getByIDKnowledgeResources, 
-    updateKnowledgeResource 
+    getByIDKnowledgeResources
     } = require('./index')
 const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
