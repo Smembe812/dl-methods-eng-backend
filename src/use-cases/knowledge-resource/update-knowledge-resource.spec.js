@@ -36,7 +36,7 @@ describe('update knowledge resource use case', () => {
 
     });
 
-    // it('must fail if title missing', async (done) => {
+    // it('must fail if id not found', async (done) => {
     //     const {title, content} = makeFakeKnowledgeResource()
     //     const payload = {title: null, content}
 

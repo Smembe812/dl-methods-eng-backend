@@ -34,6 +34,21 @@ describe('knowledge resources use cases', () => {
             })
     })
 
+    it('should fail to get knowledge resource by id not valid', async (done) => {
+        const payload = makeFakeKnowledgeResource()
+        createOneKnowledgeResource(payload)
+            .then(async (data) => {
+                const {dataValues:{id}, dataValues} = data
+
+                await expect(getByIDKnowledgeResources(1000))
+                .rejects
+                .toMatchObject({message:"could not find the knowledge resource"})
+                
+                done()
+
+            })
+    })
+
     it.todo('query knowledge resources')
 
     it.todo('should delete knowledge resource')
