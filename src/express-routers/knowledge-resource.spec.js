@@ -67,4 +67,36 @@ describe('Knowledge Resource routes', () => {
                 })
             })
     })
+
+    it('should update by id knowledge resources', async (done) => {
+        request(server)
+            .post('/api/knowledge-resources')
+            .send({
+                title: 'This is title',
+                content: "this is some content"
+            })
+            .then((response)=>{
+                const {dataValues: {id, createdAt}} = response.body
+
+                request(server)
+                .put(`/api/knowledge-resources/${id}`)
+                .send({
+                    title: 'This is updated title',
+                    content: "this is some updated content"
+                })
+                .end((error, response) => {
+                    const expected = {
+                        createdAt,
+                        id,
+                        title: 'This is updated title',
+                        content: "this is some updated content"
+                    }
+
+                    const {updatedAt, ...received} = response.body.updatedData
+                    expect(response.statusCode).toBe(201)
+                    expect(received).toStrictEqual(expected)
+                    done()
+                })
+            })
+    })
 });
