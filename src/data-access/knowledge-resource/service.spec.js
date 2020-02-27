@@ -7,7 +7,7 @@ const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-
 
 
 describe('knowledge resource data-access', () => {
-    it('create new knowledge resource', async (done) => {
+    it('should create new knowledge resource', async (done) => {
         try {
             const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
             const service = makeKnowledgeResourceService(KnowledgeResource)

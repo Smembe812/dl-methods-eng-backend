@@ -1,22 +1,33 @@
 const {updateKnowledgeResource, createOneKnowledgeResource} = require('./index')
 const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
-describe('update knowledge resource', () => {
-    it('should update knkowledge resource in db', async (done) => {
+describe('update knowledge resource use case', () => {
+    it('should update knkowledge resource', async (done) => {
         const payload = makeFakeKnowledgeResource()
         const payload2 = makeFakeKnowledgeResource()
 
         try {
-            const {dataValues: {id}} = await createOneKnowledgeResource(payload)
+            const {dataValues} = await createOneKnowledgeResource(payload)
 
+            /**
+             * construct this object
+             * {id, title, updatedAt, content}
+             */
+            const {createdAt, ...updatePayload} = Object.assign(dataValues, payload2)
             
-            const updatePayload = Object.assign(payload2, {id})
+            /**
+             * construct this object
+             * {id, title, createdAt, content}
+             */
+            const expectedUpdated = Object.assign({createdAt}, payload2, {id: updatePayload.id})
 
-            console.log(updatePayload)
-
-            const {dataValues: {title, content}} = await updateKnowledgeResource(updatePayload)
-            console.log({title, content}, payload2)
-            expect({title, content}).toStrictEqual(payload2)
+            /**
+             * construct this object
+             * {id, title, createdAt, content}
+             */
+            const {updatedAt, ...updatedKR} = await updateKnowledgeResource(updatePayload)
+            
+            expect(updatedKR).toStrictEqual(expectedUpdated)
             
             done()
         } catch (error) {

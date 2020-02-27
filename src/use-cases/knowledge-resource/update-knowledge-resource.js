@@ -8,19 +8,22 @@ const makeKnowledgeResource = require('../../entities/knowledge-resources')
 module.exports = ({service, getByIDKnowledgeResources}) => {
     return async function updateKnowledgeResource(payload) {
         try {
-            const {id, title, content} = payload
+            const {id, ...rest} = payload
 
+            
             // find kr by its ID
-            const knowledgeResource = await getByIDKnowledgeResources(id)
-
+            const {dataValues} = await getByIDKnowledgeResources(id)
+            
             // patch kr with update data
-            const updatedKnowledgeResource = Object.assign(knowledgeResource, {title, content})
+            const {createdAt, updatedAt, ...knowledgeResourceToUpdate} = Object.assign(dataValues, rest)
+            
+            console.log(knowledgeResourceToUpdate)
 
             // validate patched kr
-            const data = await makeKnowledgeResource(updatedKnowledgeResource)
+            const {title, content} = await makeKnowledgeResource(knowledgeResourceToUpdate)
             
             // persist to db
-            return service.updateOne(data, id)
+            return await service.updateOne({id, title, content})
             
         } catch (error) {
             return Promise.reject(error)

@@ -16,10 +16,11 @@ describe('knowledge resource Sequelize Model', () => {
         }
     });
     
-    it('should create db model', () => {
+    it('should create db model', (done) => {
         const KnowledgeResource = makeKnowledgeResource({define, ORM})
 
         assert.equal(typeof KnowledgeResource, "function")
+        done()
     })
 
 });

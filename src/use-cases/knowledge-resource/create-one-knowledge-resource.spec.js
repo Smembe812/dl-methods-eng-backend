@@ -5,15 +5,12 @@ describe('create knowledge resource', () => {
     it('should create new knkowledge resource in db', async (done) => {
         const payload = makeFakeKnowledgeResource()
 
-        try {
-            const {dataValues: {title, content}} = await createOneKnowledgeResource(payload)
-            
-            expect({title, content}).toStrictEqual(payload)
-            
-            done()
-        } catch (error) {
-            done(error)
-        }
+        
+        const {dataValues: {title, content}} = await createOneKnowledgeResource(payload)
+        
+        expect({title, content}).toStrictEqual(payload)
+        
+        done()
 
     });
 
