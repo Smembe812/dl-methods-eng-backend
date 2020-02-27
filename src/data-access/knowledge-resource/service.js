@@ -25,9 +25,25 @@ module.exports = (KnowledgeResource) => {
         }
     }
 
+    async function updateOne(payload){
+        try {
+            const {id, ...updateValues } = payload
+
+            const [updateState] = await KnowledgeResource.update(updateValues, { where: {id}})
+
+            const {dataValues} = updateState === 1 ? await getByID(id) : new Error("Failed to update")
+            
+            return Promise.resolve(dataValues)
+
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return Object.freeze({
         createOne,
         getAll,
-        getByID
+        getByID,
+        updateOne
     })
 }

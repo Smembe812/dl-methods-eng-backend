@@ -1,4 +1,9 @@
-const { getAllKnowledgeResources, createOneKnowledgeResource, getByIDKnowledgeResources } = require('./index')
+const { 
+    getAllKnowledgeResources, 
+    createOneKnowledgeResource, 
+    getByIDKnowledgeResources, 
+    updateKnowledgeResource 
+    } = require('./index')
 const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
 
 describe('knowledge resources use cases', () => {
@@ -34,5 +39,17 @@ describe('knowledge resources use cases', () => {
 
     it.todo('should delete knowledge resource')
 
-    it.todo('should update knowledge resource')
+    it('should update a knowledge resource', () => {
+        const payload = makeFakeKnowledgeResource()
+
+        updateKnowledgeResource(payload)
+            .then(async (data) => {
+                const {dataValues:{id}, dataValues} = data
+
+                const knowledgeResource = await getByIDKnowledgeResources(id)
+                
+                expect(dataValues).toStrictEqual((knowledgeResource.dataValues))
+                done()
+            })
+    })
 });

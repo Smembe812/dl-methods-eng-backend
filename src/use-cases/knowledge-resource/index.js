@@ -8,8 +8,13 @@ const getAllKnowledgeResources = makeGetAllKnowledgeResources({service})
 const makeGetByIDKnowledgeResources = require('./get-by-id-knowledge-resource')
 const getByIDKnowledgeResources = makeGetByIDKnowledgeResources({service})
 
+
+const makeUpdateKnowledgeResource = require('./update-knowledge-resource')
+const updateKnowledgeResource = makeUpdateKnowledgeResource({service, getByIDKnowledgeResources})
+
 module.exports = {
     createOneKnowledgeResource,
     getAllKnowledgeResources,
-    getByIDKnowledgeResources
+    getByIDKnowledgeResources,
+    updateKnowledgeResource
 }

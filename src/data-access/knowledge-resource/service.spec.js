@@ -48,7 +48,27 @@ describe('knowledge resource data-access', () => {
         done()
     })
 
-    it.todo('should update a knowledge resource')
+    it('should update a knowledge resource', async (done) => {
+        const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
+        const service = makeKnowledgeResourceService(KnowledgeResource)
+        const input = makeFakeKnowledgeResource()
+        
+        const {dataValues: {id}} = await service.createOne(input)
+    
+        const input2 = Object.assign(makeFakeKnowledgeResource(), {id})
+
+        const {title, content} = input2
+
+        let {...updatedValues} = await service.updateOne(input2)
+         
+        updatedValues = {
+            title: updatedValues.title,
+            content:updatedValues.content
+        }
+
+        expect(updatedValues).toStrictEqual({title, content})
+        done()
+    })
 
     it.todo('should delete a knowledge resource')
 
