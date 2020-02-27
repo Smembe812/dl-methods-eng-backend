@@ -6,7 +6,7 @@ const makeGetAllKnowledgeResources = require('./get-all-knowledge-resources')
 const getAllKnowledgeResources = makeGetAllKnowledgeResources({service})
 
 const makeGetByIDKnowledgeResources = require('./get-by-id-knowledge-resource')
-const getByIDKnowledgeResources = makeGetByIDKnowledgeResources({service})
+const getByIDKnowledgeResources = makeGetByIDKnowledgeResources({service, KRError})
 
 
 const makeUpdateKnowledgeResource = require('./update-knowledge-resource')
@@ -17,4 +17,13 @@ module.exports = {
     getAllKnowledgeResources,
     getByIDKnowledgeResources,
     updateKnowledgeResource
+}
+
+function KRError(message, options = {}){
+    this.message = message
+
+    if(options){
+        const {status} = options
+        this.status = status
+    }
 }

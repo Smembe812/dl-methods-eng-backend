@@ -29,7 +29,13 @@ app.use((error, req, res, next) => {
         return JSON.parse(errorJSON)
     }
 
-    const {message} = serializeError(error)
+    const {message, status} = serializeError(error)
+
+    if (status){
+        return res.status(status).json({errors: [
+            {message, status}
+        ]})
+    }
 
     return res.json({errors: [
         {message}
