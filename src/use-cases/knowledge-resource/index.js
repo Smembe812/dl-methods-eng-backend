@@ -12,11 +12,15 @@ const getByIDKnowledgeResources = makeGetByIDKnowledgeResources({service, KRErro
 const makeUpdateKnowledgeResource = require('./update-knowledge-resource')
 const updateKnowledgeResource = makeUpdateKnowledgeResource({service, getByIDKnowledgeResources})
 
+const makeDeleteKnowledgeResource = require('./delete-a-knowledge-resource')
+const deleteOneKnowledgeResource = makeDeleteKnowledgeResource({service, getByIDKnowledgeResources, KRError})
+
 module.exports = {
     createOneKnowledgeResource,
     getAllKnowledgeResources,
     getByIDKnowledgeResources,
-    updateKnowledgeResource
+    updateKnowledgeResource,
+    deleteOneKnowledgeResource
 }
 
 function KRError(message, options = {}){

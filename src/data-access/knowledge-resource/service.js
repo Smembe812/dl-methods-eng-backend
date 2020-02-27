@@ -40,10 +40,23 @@ module.exports = (KnowledgeResource) => {
         }
     }
 
+    async function deleteOne(payload){
+        try {
+            const {id} = payload
+
+            const deleted = await KnowledgeResource.destroy({ where: {id}})
+            return Promise.resolve(deleted)
+
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return Object.freeze({
         createOne,
         getAll,
         getByID,
-        updateOne
+        updateOne,
+        deleteOne
     })
 }

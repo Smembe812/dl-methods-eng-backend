@@ -47,6 +47,7 @@ describe('knowledge resource data-access', () => {
         //expect({title, content}).toStrictEqual(input)
         done()
     })
+    
 
     it('should update a knowledge resource', async (done) => {
         const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
@@ -70,7 +71,31 @@ describe('knowledge resource data-access', () => {
         done()
     })
 
-    it.todo('should delete a knowledge resource')
+    it('should delete a knowledge resource', async (done) => {
+        const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
+        const service = makeKnowledgeResourceService(KnowledgeResource)
+        const input = makeFakeKnowledgeResource()
+        
+        const {dataValues: {id}} = await service.createOne(input)
+
+        let deleted = await service.deleteOne({id})
+
+        expect(deleted).toStrictEqual(1)
+        done()
+    })
+
+    it('should fail to delete a knowledge resource', async (done) => {
+        const KnowledgeResource = makeKnowledgeResourceModel({define, ORM})
+        const service = makeKnowledgeResourceService(KnowledgeResource)
+        const input = makeFakeKnowledgeResource()
+        
+        const {dataValues: {id}} = await service.createOne(input)
+
+        let deleted = await service.deleteOne({id: 10000})
+
+        expect(deleted).toStrictEqual(0)
+        done()
+    })
 
     it.todo('should query/filter knowledge resource')
 });
