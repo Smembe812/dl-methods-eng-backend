@@ -1,13 +1,13 @@
-const {updateKnowledgeResource, createOneKnowledgeResource} = require('./index')
-const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
+const {updateProcessElement, createOneProcessElement} = require('./index')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures')
 
-describe('update knowledge resource use case', () => {
-    it('should update knkowledge resource', async (done) => {
-        const payload = makeFakeKnowledgeResource()
-        const payload2 = makeFakeKnowledgeResource()
+describe('update process element use case', () => {
+    it('should update process element', async (done) => {
+        const payload = makeFakeProcessElement()
+        const payload2 = makeFakeProcessElement()
 
         try {
-            const {dataValues} = await createOneKnowledgeResource(payload)
+            const {dataValues} = await createOneProcessElement(payload)
 
             /**
              * construct this object
@@ -21,11 +21,13 @@ describe('update knowledge resource use case', () => {
              */
             const expectedUpdated = Object.assign({createdAt}, payload2, {id: updatePayload.id})
 
+            console.log(expectedUpdated, payload2)
+
             /**
              * construct this object
              * {id, title, createdAt, content}
              */
-            const {updatedAt, ...updatedKR} = await updateKnowledgeResource(updatePayload)
+            const {updatedAt, ...updatedKR} = await updateProcessElement(updatePayload)
             
             expect(updatedKR).toStrictEqual(expectedUpdated)
             
@@ -37,22 +39,22 @@ describe('update knowledge resource use case', () => {
     });
 
     // it('must fail if id not found', async (done) => {
-    //     const {title, content} = makeFakeKnowledgeResource()
+    //     const {title, content} = makeFakeProcessElement()
     //     const payload = {title: null, content}
 
-    //     await expect(updateKnowledgeResource(payload))
+    //     await expect(updateProcessElement(payload))
     //         .rejects
-    //         .toMatchObject({message:"a knowledge resource must have title"})
+    //         .toMatchObject({message:"a process element must have title"})
     //     done()
     // });
 
     // it('must fail if content missing', async (done) => {
-    //     const {title, content} = makeFakeKnowledgeResource()
+    //     const {title, content} = makeFakeProcessElement()
     //     const payload = {title, content: null}
 
-    //     await expect(updateKnowledgeResource(payload))
+    //     await expect(updateProcessElement(payload))
     //         .rejects
-    //         .toMatchObject({message:"a knowledge resource must have some content"})
+    //         .toMatchObject({message:"a process element must have some content"})
     //     done()
     // });
     

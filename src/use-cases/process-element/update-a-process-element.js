@@ -1,29 +1,27 @@
-const makeKnowledgeResource = require('../../entities/knowledge-resources')
+const makeProcessElement = require('../../entities/process-element')
 
 /**
- * factory for creating a knowledge resource
+ * factory for updating a process element
  * @param {object} service - Database handler
- * @return {Promise} - Promise of created instance
+ * @return {Promise} - Promise of updated instance
  */
-module.exports = ({service, getByIDKnowledgeResources}) => {
-    return async function updateKnowledgeResource(payload) {
+module.exports = ({service, getByIDProcessElements}) => {
+    return async function updateProcessElement(payload) {
         try {
             const {id, ...rest} = payload
 
             
-            // find kr by its ID
-            const {dataValues} = await getByIDKnowledgeResources(id)
+            // find pe by its ID
+            const {dataValues} = await getByIDProcessElements(id)
             
-            // patch kr with update data
-            const {createdAt, updatedAt, ...knowledgeResourceToUpdate} = Object.assign(dataValues, rest)
+            // patch pe with update data
+            const {createdAt, updatedAt, ...ProcessElementToUpdate} = Object.assign(dataValues, rest)
             
-            console.log(knowledgeResourceToUpdate)
-
-            // validate patched kr
-            const {title, content} = await makeKnowledgeResource(knowledgeResourceToUpdate)
+            // validate patched pe
+            const {title, description, aim, outcome} = await makeProcessElement(ProcessElementToUpdate)
             
             // persist to db
-            return await service.updateOne({id, title, content})
+            return await service.updateOne({id, title, description, aim, outcome})
             
         } catch (error) {
             return Promise.reject(error)
