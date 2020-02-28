@@ -1,14 +1,14 @@
-const {deleteOneKnowledgeResource, createOneKnowledgeResource} = require('./index')
-const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
+const {deleteOneProcessElement, createOneProcessElement} = require('./index')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures')
 
-describe('delete knowledge resource use case', () => {
-    it('should delete knkowledge resource', async (done) => {
-        const payload = makeFakeKnowledgeResource()
+describe('delete process element use case', () => {
+    it('should delete process elemenr', async (done) => {
+        const payload = makeFakeProcessElement()
 
         try {
-            const {dataValues: {id}} = await createOneKnowledgeResource(payload)
+            const {dataValues: {id}} = await createOneProcessElement(payload)
 
-            const deleted = await deleteOneKnowledgeResource(id)
+            const deleted = await deleteOneProcessElement(id)
             
             expect(deleted).toStrictEqual(1)
             
@@ -19,18 +19,18 @@ describe('delete knowledge resource use case', () => {
 
     });
 
-    it('should fail when deleting invalid knkowledge resource', async (done) => {
-        const payload = makeFakeKnowledgeResource()
+    it('should fail when deleting invalid process elemenr', async (done) => {
+        const payload = makeFakeProcessElement()
 
         
-        const {dataValues: {id}} = await createOneKnowledgeResource(payload)
+        const {dataValues: {id}} = await createOneProcessElement(payload)
 
         
-        await expect(deleteOneKnowledgeResource(100000))
+        await expect(deleteOneProcessElement(100000))
             .rejects
             .toMatchObject(
                 {
-                    message: "could not find the knowledge resource",
+                    message: "could not find the process element",
                     status: 404,
                 })
         

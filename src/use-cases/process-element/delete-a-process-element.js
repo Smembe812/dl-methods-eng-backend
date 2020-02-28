@@ -1,18 +1,18 @@
 /**
- * factory for creating a knowledge resource
+ * factory for creating a process element
  * @param {object} service - Database handler
- * @param {Function} getByIDKnowledgeResources - Get a knowledge resource by id use case
- * @param {Constructor} KRError - Knowledge Resource error constructor
+ * @param {Function} getByIDProcessElements - Get a process element by id use case
+ * @param {Constructor} PEError - process element error constructor
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, getByIDKnowledgeResources, KRError}) => {
-    return async function deleteKnowledgeResource(id) {
+module.exports = ({service, getByIDProcessElements, PEError}) => {
+    return async function deleteProcessElement(id) {
         try {
             // find kr by its ID
-            const deleted = await getByIDKnowledgeResources(id)
+            const deleted = await getByIDProcessElements(id)
 
             if(!deleted){
-                throw new KRError('could not find knowledge resource', {status: 404})
+                throw new PEError('could not find process element', {status: 404})
             }
 
             return await service.deleteOne({id})

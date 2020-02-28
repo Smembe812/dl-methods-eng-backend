@@ -1,19 +1,19 @@
 /**
- * factory for creating a knowledge resource
+ * factory for geting a process element by id
  * @param {object} service - Database handler
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, KRError}) => {
+module.exports = ({service, PEError}) => {
 
     /**
-     * get all Knowledge resources
+     * get all process elements
      */
     return async function getByIDKnowledgeResources(id) {
         try {
             const kr =  await service.getByID(id) 
 
             if (!kr){
-                throw new KRError("could not find the knowledge resource", {status: 404})
+                throw new PEError("could not find the process element", {status: 404})
             }
             
             return Promise.resolve(kr)
