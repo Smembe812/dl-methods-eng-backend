@@ -1,14 +1,14 @@
 /**
- * factory for creating a knowledge resource
+ * factory for creating a process element
  * @param {object} service - Database handler
  * @return {Promise} - Promise of created instance
  */
 module.exports = ({service}) => {
 
     /**
-     * get all Knowledge resources
+     * get all process elements
      */
-    return async function getAllKnowledgeResources() {
+    return async function getAllProcessElement() {
         try {
             return await service.getAll()
             

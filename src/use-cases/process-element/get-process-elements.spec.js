@@ -1,55 +1,55 @@
 const { 
-    getAllKnowledgeResources, 
-    createOneKnowledgeResource, 
-    getByIDKnowledgeResources
+    getAllProcessElements, 
+    createOneProcessElement, 
+    getByIDProcessElements
     } = require('./index')
-const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures')
 
-describe('knowledge resources use cases', () => {
-    it('should get all knowledge resources', async (done) => {
-        const payload = makeFakeKnowledgeResource()
+describe('get process elements use cases', () => {
+    it('should get all process elements', async (done) => {
+        const payload = makeFakeProcessElement()
 
-        createOneKnowledgeResource(payload)
+        createOneProcessElement(payload)
             .then(async () => {
-                const knowledgeResources = await getAllKnowledgeResources()
+                const processElements = await getAllProcessElements()
         
-                expect(knowledgeResources.length > 0).toBe((true))
+                expect(processElements.length > 0).toBe((true))
                 done()
 
             })
     })
 
 
-    it('should get knowledge resource by id', async (done) => {
-        const payload = makeFakeKnowledgeResource()
-        createOneKnowledgeResource(payload)
+    it('should get process element by id', async (done) => {
+        const payload = makeFakeProcessElement()
+        createOneProcessElement(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
 
-                const knowledgeResource = await getByIDKnowledgeResources(id)
+                const processElement = await getByIDProcessElements(id)
                 
-                expect(dataValues).toStrictEqual((knowledgeResource.dataValues))
+                expect(dataValues).toStrictEqual((processElement.dataValues))
                 done()
 
             })
     })
 
-    it('should fail to get knowledge resource by id not valid', async (done) => {
-        const payload = makeFakeKnowledgeResource()
-        createOneKnowledgeResource(payload)
+    it('should fail to get process element by id not valid', async (done) => {
+        const payload = makeFakeProcessElement()
+        createOneProcessElement(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
 
-                await expect(getByIDKnowledgeResources(1000))
+                await expect(getByIDProcessElements(1000))
                 .rejects
-                .toMatchObject({message:"could not find the knowledge resource"})
+                .toMatchObject({message:"could not find the process element"})
                 
                 done()
 
             })
     })
 
-    it.todo('query knowledge resources')
+    it.todo('query process elements')
 
-    it.todo('should delete knowledge resource')
+    it.todo('should delete process element')
 });

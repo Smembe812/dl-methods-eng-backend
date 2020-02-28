@@ -8,7 +8,7 @@ module.exports = ({service, PEError}) => {
     /**
      * get all process elements
      */
-    return async function getByIDKnowledgeResources(id) {
+    return async function getByIDProcessElements(id) {
         try {
             const kr =  await service.getByID(id) 
 
