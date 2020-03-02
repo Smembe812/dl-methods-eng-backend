@@ -1,8 +1,8 @@
-module.exports = ({getAllProcessElements}) => {
+module.exports = ({getAllTechniques}) => {
     return async (httpRequest, next) => {
         try {
             
-            return await getAllProcessElements()
+            return await getAllTechniques()
         } catch (error) {
             return Promise.reject(error)
         }

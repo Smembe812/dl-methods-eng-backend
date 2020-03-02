@@ -1,15 +1,15 @@
-const {getAllProcessElementsController, postProcessElementController} = require('./')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {getAllTechniquesController, postTechniqueController} = require('./')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('getall process elements controller', () => {
+describe('getall techniques controller', () => {
     
-    it('should succesfully get all process elementss', async (done) => {
-        const fakeProcessElementPost = makeFakeProcessElement()
+    it('should succesfully get all techniques', async (done) => {
+        const fakeTechniquePost = makeFakeTechnique()
 
-        await postProcessElementController({body: fakeProcessElementPost})
+        await postTechniqueController({body: fakeTechniquePost})
          
-        const processElements = await getAllProcessElementsController({})
-        expect(processElements.length > 0).toBe((true))
+        const aTechniques = await getAllTechniquesController({})
+        expect(aTechniques.length > 0).toBe((true))
         done()
     })
 });
