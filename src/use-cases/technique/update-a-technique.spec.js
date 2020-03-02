@@ -1,35 +1,40 @@
-const {updateProcessElement, createOneProcessElement} = require('./index')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {updateTechnique, createOneTechnique} = require('./index')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('update process element use case', () => {
-    it('should update process element', async (done) => {
-        const payload = makeFakeProcessElement()
-        const payload2 = makeFakeProcessElement()
+describe('update technique use case', () => {
+    it('should update technique', async (done) => {
+        const payload = makeFakeTechnique()
+        const payload2 = makeFakeTechnique()
 
         try {
-            const {dataValues} = await createOneProcessElement(payload)
+            const {dataValues} = await createOneTechnique(payload)
 
             /**
              * construct this object
-             * {id, title, updatedAt, description, aim, outcome}
+             * {id, title, updatedAt, description, aim, how, when, whenNot, combinableWith}
              */
-            const {createdAt, ...updatePayload} = Object.assign(dataValues, payload2)
+            const {
+                createdAt, 
+                ...updatePayload
+            } = Object.assign(dataValues, payload2)
             
             /**
              * construct this object
-             * {id, title, createdAt, description, aim, outcome}
+             * {id, title, createdAt, description, aim, how, when, whenNot, combinableWith}
              */
-            const expectedUpdated = Object.assign({createdAt}, payload2, {id: updatePayload.id})
-
-            console.log(expectedUpdated, payload2)
+            const expectedUpdated = Object.assign(
+                {createdAt}, 
+                payload2, 
+                {id: updatePayload.id})
 
             /**
              * construct this object
-             * {id, title, createdAt, description, aim, outcome}
+             * {id, title, createdAt, description, aim, how, when, whenNot, combinableWith}
              */
-            const {updatedAt, ...updatedPE} = await updateProcessElement(updatePayload)
+
+            const {updatedAt, ...updatedT} = await updateTechnique(updatePayload)
             
-            expect(updatedPE).toStrictEqual(expectedUpdated)
+            expect(updatedT).toStrictEqual(expectedUpdated)
             
             done()
         } catch (error) {
@@ -38,25 +43,79 @@ describe('update process element use case', () => {
 
     });
 
-    // it('must fail if id not found', async (done) => {
-    //     const {title, content} = makeFakeProcessElement()
-    //     const payload = {title: null, content}
+    it('must fail if id not provided', async (done) => {
+        const payload1 = makeFakeTechnique()
+        const payload2 = makeFakeTechnique()
 
-    //     await expect(updateProcessElement(payload))
-    //         .rejects
-    //         .toMatchObject({message:"a process element must have title"})
-    //     done()
-    // });
+        const {dataValues} = await createOneTechnique(payload1)
 
-    // it('must fail if content missing', async (done) => {
-    //     const {title, content} = makeFakeProcessElement()
-    //     const payload = {title, content: null}
+            /**
+             * construct this object
+             * {description, aim, how, when, whenNot, combinableWith}
+             */
+            const {
+                id,
+                createdAt,
+                title,
+                updatedAt, 
+                ...updatePayload
+            } = Object.assign(dataValues, payload2)
 
-    //     await expect(updateProcessElement(payload))
-    //         .rejects
-    //         .toMatchObject({message:"a process element must have some content"})
-    //     done()
-    // });
+        await expect(updateTechnique(updatePayload))
+            .rejects
+            .toMatchObject({
+                message:"could not find the technique",
+                status: 404
+            })
+        done()
+    });
+
+    it('must fail if id not found', async (done) => {
+        const payload1 = makeFakeTechnique()
+        const payload2 = makeFakeTechnique()
+
+        const {dataValues} = await createOneTechnique(payload1)
+
+            /**
+             * construct this object
+             * {description, aim, how, when, whenNot, combinableWith}
+             */
+            const {
+                createdAt,
+                updatedAt, 
+                ...updatePayload
+            } = Object.assign(dataValues, payload2, {id: 10000})
+
+        await expect(updateTechnique(updatePayload))
+            .rejects
+            .toMatchObject({
+                message:"could not find the technique",
+                status: 404
+            })
+        done()
+    });
+
+    it('must fail if title missing', async (done) => {
+        const payload1 = makeFakeTechnique()
+        const payload2 = makeFakeTechnique()
+
+        const {dataValues} = await createOneTechnique(payload1)
+
+            /**
+             * construct this object
+             * {description, aim, how, when, whenNot, combinableWith}
+             */
+            const {
+                createdAt,
+                updatedAt, 
+                ...updatePayload
+            } = Object.assign(dataValues, payload2, {title: null})
+
+        await expect(updateTechnique(updatePayload))
+            .rejects
+            .toMatchObject({message:"a technique must have title"})
+        done()
+    });
     
     
 });

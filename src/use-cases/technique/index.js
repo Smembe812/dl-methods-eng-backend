@@ -10,7 +10,7 @@ const getByIDTechnique = makeGetByIDTechnique({service, TError})
 
 
 const makeUpdateTechnique = require('./update-a-technique')
-const updateTechnique = makeUpdateTechnique({service, getByIDTechnique})
+const updateTechnique = makeUpdateTechnique({service, getByIDTechnique, TError})
 
 const makeDeleteTechnique = require('./delete-a-technique')
 const deleteOneTechnique = makeDeleteTechnique({service, getByIDTechnique, TError})

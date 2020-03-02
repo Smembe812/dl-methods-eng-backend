@@ -1,27 +1,34 @@
-const makeProcessElement = require('../../entities/process-element')
+const makeTechnique = require('../../entities/technique')
 
 /**
- * factory for updating a process element
+ * factory for updating a technique
  * @param {object} service - Database handler
  * @return {Promise} - Promise of updated instance
  */
-module.exports = ({service, getByIDProcessElements}) => {
-    return async function updateProcessElement(payload) {
+module.exports = ({service, getByIDTechnique, TError}) => {
+    return async function updateTechnique(payload) {
         try {
             const {id, ...rest} = payload
+            if(!id){
+                throw new TError(
+                    "could not find the technique", 
+                    {
+                        status: 404
+                    }
+                )
+            }
+            // find technique by its ID
+            const {dataValues} = await getByIDTechnique(id)
+            
 
+            // patch technique with update data
+            const {createdAt, updatedAt, ...techniqueToUpdate} = Object.assign(dataValues, rest)
             
-            // find pe by its ID
-            const {dataValues} = await getByIDProcessElements(id)
-            
-            // patch pe with update data
-            const {createdAt, updatedAt, ...ProcessElementToUpdate} = Object.assign(dataValues, rest)
-            
-            // validate patched pe
-            const {title, description, aim, outcome} = await makeProcessElement(ProcessElementToUpdate)
-            
+            // validate patched technique
+            const {...validProps} = await makeTechnique(techniqueToUpdate)
+
             // persist to db
-            return await service.updateOne({id, title, description, aim, outcome})
+            return await service.updateOne({id, ...validProps})
             
         } catch (error) {
             return Promise.reject(error)
