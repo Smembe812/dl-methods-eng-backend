@@ -1,39 +1,36 @@
-const {updateOneProcessElementController, postProcessElementController} = require('./')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures/')
+const {updateOneTechniqueController, postTechniqueController} = require('./')
+const {makeFakeTechnique} = require('../../../__test__/fixtures/')
 
-describe('update process element controller', () => {
-    it('succesfully update a process element', async (done) => {
+describe('update technique controller', () => {
+    it('succesfully update a technique', async (done) => {
 
-        const fakeProcessElementPost = makeFakeProcessElement()
-        const fakeProcessElementUpdate = makeFakeProcessElement()
+        const fakeTechniquePost = makeFakeTechnique()
+        const {...fakeUpdateProps} = makeFakeTechnique()
 
         
-        const {dataValues} = await postProcessElementController({body: fakeProcessElementPost})
+        const {dataValues} = await postTechniqueController({body: fakeTechniquePost})
         
         const expected  = {
-            title: fakeProcessElementUpdate.title,
-            aim: fakeProcessElementUpdate.aim,
-            outcome: fakeProcessElementUpdate.outcome,
-            description: fakeProcessElementUpdate.description,
+            ...fakeUpdateProps,
             id: dataValues.id,
             createdAt: dataValues.createdAt
         }
 
-        const {updatedData: {updatedAt, ...updatedPE}} = await updateOneProcessElementController({
-            body: fakeProcessElementUpdate, 
+        const {updatedData: {updatedAt, ...updatedTechnique}} = await updateOneTechniqueController({
+            body: {...fakeUpdateProps}, 
             params: {id: dataValues.id}
         })
         
-        expect(updatedPE).toStrictEqual(expected)
+        expect(updatedTechnique).toStrictEqual(expected)
         done()
     })
 
     it('should error at failiure', async (done) => {
 
-        const {outcome, description, aim} = makeFakeProcessElement()
+        const {title, ...restOfProps} = makeFakeTechnique()
 
-        await expect(updateOneProcessElementController(
-            {body: {outcome, description, aim}}))
+        await expect(updateOneTechniqueController(
+            {body: {...restOfProps}}))
                     .rejects
                     .toEqual(expect.any(Error))
         done()
