@@ -1,15 +1,15 @@
-const {deleteOneProcessElementContoller, postProcessElementController} = require('./')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {deleteOneTechniqueContoller, postTechniqueController} = require('./')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('delete process element controller', () => {
-    it('succesfully delete a process element', async (done) => {
+describe('delete technique controller', () => {
+    it('succesfully delete a technique', async (done) => {
 
-        const fakeProcessElementPost = makeFakeProcessElement()
+        const fakeTechniquePost = makeFakeTechnique()
 
         
-        const {dataValues} = await postProcessElementController({body: fakeProcessElementPost})
+        const {dataValues} = await postTechniqueController({body: fakeTechniquePost})
         
-        const deleted = await deleteOneProcessElementContoller({
+        const deleted = await deleteOneTechniqueContoller({
             params: {id: dataValues.id}
         })
         
@@ -18,11 +18,11 @@ describe('delete process element controller', () => {
     })
 
     it('should error at failiure', async (done) => {
-        await expect(deleteOneProcessElementContoller({params: {id:100000}}))
+        await expect(deleteOneTechniqueContoller({params: {id:100000}}))
                     .rejects
                     .toMatchObject(
                         {
-                            message: "could not find the process element",
+                            message: "could not find the technique",
                             status: 404,
                         })
         done()
