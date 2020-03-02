@@ -1,14 +1,14 @@
-const {deleteOneProcessElement, createOneProcessElement} = require('./index')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {deleteOneTechnique, createOneTechnique} = require('./index')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('delete process element use case', () => {
-    it('should delete process elemenr', async (done) => {
-        const payload = makeFakeProcessElement()
+describe('delete technique use case', () => {
+    it('should delete technique', async (done) => {
+        const payload = makeFakeTechnique()
 
         try {
-            const {dataValues: {id}} = await createOneProcessElement(payload)
+            const {dataValues: {id}} = await createOneTechnique(payload)
 
-            const deleted = await deleteOneProcessElement(id)
+            const deleted = await deleteOneTechnique(id)
             
             expect(deleted).toStrictEqual(1)
             
@@ -19,18 +19,18 @@ describe('delete process element use case', () => {
 
     });
 
-    it('should fail when deleting invalid process elemenr', async (done) => {
-        const payload = makeFakeProcessElement()
+    it('should fail when deleting invalid technique', async (done) => {
+        const payload = makeFakeTechnique()
 
         
-        const {dataValues: {id}} = await createOneProcessElement(payload)
+        const {dataValues: {id}} = await createOneTechnique(payload)
 
         
-        await expect(deleteOneProcessElement(100000))
+        await expect(deleteOneTechnique(100000))
             .rejects
             .toMatchObject(
                 {
-                    message: "could not find the process element",
+                    message: "could not find the technique",
                     status: 404,
                 })
         
