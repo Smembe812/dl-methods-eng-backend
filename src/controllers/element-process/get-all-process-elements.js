@@ -1,8 +1,8 @@
-module.exports = ({getAllKnowledgeResources}) => {
+module.exports = ({getAllProcessElements}) => {
     return async (httpRequest, next) => {
         try {
             
-            return await getAllKnowledgeResources()
+            return await getAllProcessElements()
         } catch (error) {
             return Promise.reject(error)
         }

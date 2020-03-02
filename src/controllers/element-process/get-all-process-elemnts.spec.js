@@ -1,18 +1,16 @@
-const {getAllKnowledgeResourcesController, postKnowledgeResource} = require('./')
+const {getAllProcessElementsController, postProcessElementController} = require('./')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures')
 
-describe('getall knowledge resource controller', () => {
+describe('getall process elements controller', () => {
     
-    it('should succesfully get all knowledge resources', async (done) => {
-        const fakeKnowledgeResourcePost = {
-            title: "This is title",
-            content: "this is some content"
-        }
+    it('should succesfully get all process elementss', async (done) => {
+        const fakeProcessElementPost = makeFakeProcessElement()
 
-        postKnowledgeResource({body: fakeKnowledgeResourcePost})
+        postProcessElementController({body: fakeProcessElementPost})
             .then(async () => {
-                const krs = await getAllKnowledgeResourcesController({})
-                expect(krs.length > 0).toBe((true))
-                done()
+                const processElements = await getAllProcessElementsController({})
+                expect(processElements.length > 0).toBe((true))
             })
+        done()
     })
 });
