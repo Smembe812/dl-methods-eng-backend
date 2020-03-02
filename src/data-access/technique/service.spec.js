@@ -1,57 +1,64 @@
-const assert = require('assert')
-const makeProcessElementModel = require('./model')
-const makeProcessElementService = require('./service')
+const makeTechniqueModel = require('./model')
+const makeTechniqueService = require('./service')
 const {define, ORM} = require('../db/')
 
-const {makeFakeProcessElement} = require('../../../__test__/fixtures/')
+const {makeFakeTechnique} = require('../../../__test__/fixtures/')
 
 
-describe('process element data-access', () => {
-    it('should create new process element', async (done) => {
-            const ProcessElement = makeProcessElementModel({define, ORM})
-            const service = makeProcessElementService(ProcessElement)
-            const input = makeFakeProcessElement()
+describe('technique data-access', () => {
+    it('should create new technique', async (done) => {
+            const Technique = makeTechniqueModel({define, ORM})
+            const service = makeTechniqueService(Technique)
+            const input = makeFakeTechnique()
             
-            const {dataValues: {title, aim, description, outcome}} = await service.createOne(input)
-            expect({title, aim, description, outcome}).toStrictEqual(input)
+            const {
+                dataValues: {
+                    id,
+                    updatedAt,
+                    createdAt,
+                    ...techniqueProps
+                }
+            } = await service.createOne(input)
+            
+            expect(techniqueProps).toStrictEqual(input)
             done()
     });
 
-    it('should get all process elements', async (done) => {
-        const ProcessElement = makeProcessElementModel({define, ORM})
-        const service = makeProcessElementService(ProcessElement)
+    it('should get all techniques', async (done) => {
+        const Technique = makeTechniqueModel({define, ORM})
+        const service = makeTechniqueService(Technique)
 
-        const input = makeFakeProcessElement()
+        const input = makeFakeTechnique()
         await service.createOne(input)
-        const processElements = await service.getAll()
+        const Techniques = await service.getAll()
 
-        expect(processElements.length > 0).toBe((true))
+        expect(Techniques.length > 0).toBe((true))
         done()
     })
 
-    it('should get one process element by id', async (done) => {
-        const ProcessElement = makeProcessElementModel({define, ORM})
-        const service = makeProcessElementService(ProcessElement)
+    it('should get one technique by id', async (done) => {
+        const Technique = makeTechniqueModel({define, ORM})
+        const service = makeTechniqueService(Technique)
         
-        const input = makeFakeProcessElement()
+        const input = makeFakeTechnique()
         const {dataValues: {id}, dataValues} = await service.createOne(input)
-        const processElement = await service.getByID(id)
+        const aTechnique = await service.getByID(id)
 
-        expect(processElement.dataValues).toStrictEqual((dataValues))
+        expect(aTechnique.dataValues).toStrictEqual((dataValues))
 
         //expect({title, content}).toStrictEqual(input)
         done()
     })
     
 
-    it('should update a process element', async (done) => {
-        const ProcessElement = makeProcessElementModel({define, ORM})
-        const service = makeProcessElementService(ProcessElement)
-        const input = makeFakeProcessElement()
+    it('should update a technique', async (done) => {
+        const Technique = makeTechniqueModel({define, ORM})
+        const service = makeTechniqueService(Technique)
+        const input = makeFakeTechnique()
         
         const {dataValues: {id}} = await service.createOne(input)
     
-        const input2 = Object.assign(makeFakeProcessElement(), {id})
+        const input2 = Object.assign(makeFakeTechnique(), {id})
 
         const {title, aim, description, outcome} = input2
 
@@ -68,10 +75,10 @@ describe('process element data-access', () => {
         done()
     })
 
-    it('should delete a process element', async (done) => {
-        const ProcessElement = makeProcessElementModel({define, ORM})
-        const service = makeProcessElementService(ProcessElement)
-        const input = makeFakeProcessElement()
+    it('should delete a technique', async (done) => {
+        const Technique = makeTechniqueModel({define, ORM})
+        const service = makeTechniqueService(Technique)
+        const input = makeFakeTechnique()
         
         const {dataValues: {id}} = await service.createOne(input)
 
@@ -81,10 +88,10 @@ describe('process element data-access', () => {
         done()
     })
 
-    it('should fail to delete a process element', async (done) => {
-        const ProcessElement = makeProcessElementModel({define, ORM})
-        const service = makeProcessElementService(ProcessElement)
-        const input = makeFakeProcessElement()
+    it('should fail to delete a technique', async (done) => {
+        const Technique = makeTechniqueModel({define, ORM})
+        const service = makeTechniqueService(Technique)
+        const input = makeFakeTechnique()
         
         const {dataValues: {id}} = await service.createOne(input)
 
@@ -94,5 +101,5 @@ describe('process element data-access', () => {
         done()
     })
 
-    it.todo('should query/filter process element')
+    it.todo('should query/filter technique')
 });
