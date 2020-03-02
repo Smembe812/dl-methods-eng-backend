@@ -103,11 +103,6 @@ describe('process elements routes', () => {
                 .delete(`/api/process-elements/${id}`)
                 .end((error, response) => {
                     const expected = {deleted: true, status: 201}
-                    // {
-                    //     message: "could not find the process elements",
-                    //     status: 404,
-                    // }
-
                     const received = response.body
                     expect(response.statusCode).toBe(201)
                     expect(received).toStrictEqual(expected)
