@@ -1,16 +1,18 @@
-const {getByIDProcessElementsController, postProcessElementController} = require('./')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {getByIDTechniqueController, postTechniqueController,} = require('./')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('get process element controller by id', () => {
+describe('get technique controller by id', () => {
 
-    it('should succesfully get process element by ID', async (done) => {
-        const fakeProcessElementPost = makeFakeProcessElement()
+    it('should succesfully get technique by ID', async (done) => {
+        const fakeTechniquePost = makeFakeTechnique()
 
-        postProcessElementController({body: fakeProcessElementPost})
-            .then(async (processElement) => {
-                const {dataValues} = await getByIDProcessElementsController({params: {id: processElement.dataValues.id}})
+        postTechniqueController({body: fakeTechniquePost})
+            .then(async ({dataValues: {id}, dataValues}) => {
+                const expected = dataValues
+                const received = await getByIDTechniqueController({
+                    params: {id}})
                 
-                expect(processElement.dataValues).toStrictEqual(dataValues)
+                expect(received.dataValues).toStrictEqual(expected)
                 done()
             })
     })
