@@ -1,19 +1,22 @@
 /**
- * factory for geting a process element by id
+ * factory for geting a technique by id
  * @param {object} service - Database handler
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, PEError}) => {
+module.exports = ({service, TError}) => {
 
     /**
-     * get all process elements
+     * get all techniques
      */
-    return async function getByIDProcessElements(id) {
+    return async function getByIDTechniques(id) {
         try {
             const kr =  await service.getByID(id) 
 
             if (!kr){
-                throw new PEError("could not find the process element", {status: 404})
+                throw new TError(
+                    "could not find the technique", 
+                    {status: 404}
+                )
             }
             
             return Promise.resolve(kr)

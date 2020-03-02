@@ -1,55 +1,55 @@
 const { 
-    getAllProcessElements, 
-    createOneProcessElement, 
-    getByIDProcessElements
+    getAllTechniques, 
+    createOneTechnique, 
+    getByIDTechnique
     } = require('./index')
-const {makeFakeProcessElement} = require('../../../__test__/fixtures')
+const {makeFakeTechnique} = require('../../../__test__/fixtures')
 
-describe('get process elements use cases', () => {
-    it('should get all process elements', async (done) => {
-        const payload = makeFakeProcessElement()
+describe('get techniques use cases', () => {
+    it('should get all techniques', async (done) => {
+        const payload = makeFakeTechnique()
 
-        createOneProcessElement(payload)
+        createOneTechnique(payload)
             .then(async () => {
-                const processElements = await getAllProcessElements()
+                const Techniques = await getAllTechniques()
         
-                expect(processElements.length > 0).toBe((true))
+                expect(Techniques.length > 0).toBe((true))
                 done()
 
             })
     })
 
 
-    it('should get process element by id', async (done) => {
-        const payload = makeFakeProcessElement()
-        createOneProcessElement(payload)
+    it('should get technique by id', async (done) => {
+        const payload = makeFakeTechnique()
+        createOneTechnique(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
 
-                const processElement = await getByIDProcessElements(id)
+                const Technique = await getByIDTechnique(id)
                 
-                expect(dataValues).toStrictEqual((processElement.dataValues))
+                expect(dataValues).toStrictEqual((Technique.dataValues))
                 done()
 
             })
     })
 
-    it('should fail to get process element by id not valid', async (done) => {
-        const payload = makeFakeProcessElement()
-        createOneProcessElement(payload)
+    it('should fail to get technique by id not valid', async (done) => {
+        const payload = makeFakeTechnique()
+        createOneTechnique(payload)
             .then(async (data) => {
                 const {dataValues:{id}, dataValues} = data
 
-                await expect(getByIDProcessElements(1000))
+                await expect(getByIDTechnique(1000))
                 .rejects
-                .toMatchObject({message:"could not find the process element"})
+                .toMatchObject({message:"could not find the technique"})
                 
                 done()
 
             })
     })
 
-    it.todo('query process elements')
+    it.todo('query techniques')
 
-    it.todo('should delete process element')
+    it.todo('should delete technique')
 });

@@ -1,14 +1,14 @@
 /**
- * factory for creating a process element
+ * factory for creating a technique
  * @param {object} service - Database handler
  * @return {Promise} - Promise of created instance
  */
 module.exports = ({service}) => {
 
     /**
-     * get all process elements
+     * get all techniques
      */
-    return async function getAllProcessElement() {
+    return async function getAllTechniques() {
         try {
             return await service.getAll()
             
