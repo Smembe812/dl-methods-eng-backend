@@ -1,8 +1,8 @@
-module.exports = ({getByIDKnowledgeResources}) => {
+module.exports = ({getByIDProcessElements}) => {
     return async (httpRequest, next) => {
         const {params: {id}} = httpRequest
         try {
-            return await getByIDKnowledgeResources(id)
+            return await getByIDProcessElements(id)
         } catch (error) {
             return Promise.reject(error)
         }

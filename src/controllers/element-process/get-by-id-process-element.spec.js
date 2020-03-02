@@ -1,22 +1,16 @@
-const {getByIDKnowledgeResourcesController, postKnowledgeResource} = require('./')
+const {getByIDProcessElementsController, postProcessElementController} = require('./')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures')
 
-describe('get knowledge resource controller by id', () => {
-    
-    beforeEach( async (done) => {
-        done()
-    })
+describe('get process element controller by id', () => {
 
-    it('should succesfully get knowledge resource by ID', async (done) => {
-        const fakeKnowledgeResourcePost = {
-            title: "This is title",
-            content: "this is some content"
-        }
+    it('should succesfully get process element by ID', async (done) => {
+        const fakeProcessElementPost = makeFakeProcessElement()
 
-        postKnowledgeResource({body: fakeKnowledgeResourcePost})
-            .then(async (kr) => {
-                const {dataValues} = await getByIDKnowledgeResourcesController({params: {id: kr.dataValues.id}})
+        postProcessElementController({body: fakeProcessElementPost})
+            .then(async (processElement) => {
+                const {dataValues} = await getByIDProcessElementsController({params: {id: processElement.dataValues.id}})
                 
-                expect(kr.dataValues).toStrictEqual(dataValues)
+                expect(processElement.dataValues).toStrictEqual(dataValues)
                 done()
             })
     })
