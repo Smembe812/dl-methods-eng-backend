@@ -1,38 +1,39 @@
-const {updateOneKnowledgeResource, postKnowledgeResource} = require('./')
-const makeFakeKnowledgeResource = require('../../../__test__/fixtures/knowledge-resource')
+const {updateOneProcessElementController, postProcessElementController} = require('./')
+const {makeFakeProcessElement} = require('../../../__test__/fixtures/')
 
-describe('update knowledge resource controller', () => {
-    it('succesfully update a knowledge resource', async (done) => {
+describe('update process element controller', () => {
+    it('succesfully update a process element', async (done) => {
 
-        const fakeKnowledgeResourcePost = makeFakeKnowledgeResource()
-        const fakeKnowledgeResourceUpdate = makeFakeKnowledgeResource()
+        const fakeProcessElementPost = makeFakeProcessElement()
+        const fakeProcessElementUpdate = makeFakeProcessElement()
 
         
-        const {dataValues} = await postKnowledgeResource({body: fakeKnowledgeResourcePost})
+        const {dataValues} = await postProcessElementController({body: fakeProcessElementPost})
         
         const expected  = {
-            title: fakeKnowledgeResourceUpdate.title,
-            content: fakeKnowledgeResourceUpdate.content,
+            title: fakeProcessElementUpdate.title,
+            aim: fakeProcessElementUpdate.aim,
+            outcome: fakeProcessElementUpdate.outcome,
+            description: fakeProcessElementUpdate.description,
             id: dataValues.id,
             createdAt: dataValues.createdAt
         }
 
-        const {updatedData: {updatedAt, ...updatedKr}} = await updateOneKnowledgeResource({
-            body: fakeKnowledgeResourceUpdate, 
+        const {updatedData: {updatedAt, ...updatedPE}} = await updateOneProcessElementController({
+            body: fakeProcessElementUpdate, 
             params: {id: dataValues.id}
         })
         
-        expect(updatedKr).toStrictEqual(expected)
+        expect(updatedPE).toStrictEqual(expected)
         done()
     })
+
     it('should error at failiure', async (done) => {
 
-        const fakeKnowledgeResourceUpdate = {
-            title: null,
-            content: "this is some content"
-        }
+        const {outcome, description, aim} = makeFakeProcessElement()
 
-        await expect(updateOneKnowledgeResource({body: fakeKnowledgeResourceUpdate}))
+        await expect(updateOneProcessElementController(
+            {body: {outcome, description, aim}}))
                     .rejects
                     .toEqual(expect.any(Error))
         done()

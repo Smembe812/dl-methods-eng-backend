@@ -11,13 +11,13 @@ describe('update process element use case', () => {
 
             /**
              * construct this object
-             * {id, title, updatedAt, content}
+             * {id, title, updatedAt, description, aim, outcome}
              */
             const {createdAt, ...updatePayload} = Object.assign(dataValues, payload2)
             
             /**
              * construct this object
-             * {id, title, createdAt, content}
+             * {id, title, createdAt, description, aim, outcome}
              */
             const expectedUpdated = Object.assign({createdAt}, payload2, {id: updatePayload.id})
 
@@ -25,11 +25,11 @@ describe('update process element use case', () => {
 
             /**
              * construct this object
-             * {id, title, createdAt, content}
+             * {id, title, createdAt, description, aim, outcome}
              */
-            const {updatedAt, ...updatedKR} = await updateProcessElement(updatePayload)
+            const {updatedAt, ...updatedPE} = await updateProcessElement(updatePayload)
             
-            expect(updatedKR).toStrictEqual(expectedUpdated)
+            expect(updatedPE).toStrictEqual(expectedUpdated)
             
             done()
         } catch (error) {
