@@ -5,11 +5,13 @@ const makeCallback = require('../express-callback')
  */
 module.exports = ({express}) => {
 
-    const router = express.Router()
+    const mainRouter = express.Router()
 
-    const knowledgeResourceRouter = require('./knowledge-resource')({router, makeCallback})
+    const knowledgeResourceRoutes = require('./knowledge-resource')({express, makeCallback})
+    const processElementRoutes = require('./process-element')({express, makeCallback})
 
-    router.use('/knowledge-resources', knowledgeResourceRouter)
+    mainRouter.use('/knowledge-resources', knowledgeResourceRoutes)
+    mainRouter.use('/process-elements', processElementRoutes)
 
-    return router
+    return mainRouter
 }

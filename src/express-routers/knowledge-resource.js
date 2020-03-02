@@ -10,12 +10,13 @@ const { postKnowledgeResource,
  * @requires {function} postKnowledgeResource - Controller for posting new knowledge resource
  * @returns {object} router - Express router instance
  */
-module.exports = ({router, makeCallback}) => {      
+module.exports = ({express, makeCallback}) => {   
+    const router = express.Router()   
     router.post('/', makeCallback(postKnowledgeResource))
     router.get('/', makeCallback(getAllKnowledgeResourcesController))
-    router.get('/knowledge-resources/:id', makeCallback(getByIDKnowledgeResourcesController))
-    router.put('/knowledge-resources/:id', makeCallback(updateOneKnowledgeResource))
-    router.delete('/knowledge-resources/:id', makeCallback(deleteOneKnowledgeResourceContoller))
+    router.get('/:id', makeCallback(getByIDKnowledgeResourcesController))
+    router.put('/:id', makeCallback(updateOneKnowledgeResource))
+    router.delete('/:id', makeCallback(deleteOneKnowledgeResourceContoller))
     
     return router
 }
