@@ -39,4 +39,7 @@ describe('technique entity', () => {
         .toMatchObject(fakeTechnique)
         done()
     })
+
+    it.todo('must sanitize [aim, description] values')
+    it.todo("must create technique under strict rules")
 });

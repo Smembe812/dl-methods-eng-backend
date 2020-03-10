@@ -1,3 +1,4 @@
+//TODO: must check if [aim, description, how, etc] are strings
 module.exports = () => {
     return (
         {
