@@ -6,7 +6,10 @@ function startServer(PORT = '3000'){
         console.log(`server up at ${PORT}`) 
     })
 }
+if (process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
 
-startServer()
+startServer(process.env.PORT)
 
 module.exports = startServer
