@@ -7,25 +7,13 @@ const {makeFakeFile} = require('../../../__test__/fixtures/')
 
 describe('file data-access', () => {
     it('should create new file', async (done) => {
-            const File = makeFileModel({define, ORM})
-            const service = makeFileService(File)
-            const input = makeFakeFile()
-            
-            const fakeImageJSON = {
-                public_id: 'sample_remote',
-                version: 1336304441,
-                signature: 'abcde20044f8c8ba71fb31ebe81e9d72ec8763dd',
-                width: 100,
-                height: 100,
-                format: 'jpg',
-                resource_type: 'image',
-                url: 'http://res.cloudinary.com/demo/image/upload/v1336304441/sample_remote.jpg',
-                secure_url: 'https://d3jpl91pxevbkh.cloudfront.net/demo/image/upload/v1336304441/sample_remote.jpg'
-            }
+        const File = makeFileModel({define, ORM})
+        const service = makeFileService(File)
+        const input = makeFakeFile()
 
-            const {dataValues: {title, aim, description, outcome}} = await service.createOne(input)
-            expect({title, aim, description, outcome}).toStrictEqual(input)
-            done()
+        const {dataValues: {title, image}} = await service.createOne(input)
+        expect({title, image}).toStrictEqual(input)
+        done()
     });
 
     it('should get all files', async (done) => {
@@ -46,9 +34,9 @@ describe('file data-access', () => {
         
         const input = makeFakeFile()
         const {dataValues: {id}, dataValues} = await service.createOne(input)
-        const File = await service.getByID(id)
+        const fileRes = await service.getByID(id)
 
-        expect(File.dataValues).toStrictEqual((dataValues))
+        expect(fileRes.dataValues).toStrictEqual((dataValues))
 
         //expect({title, content}).toStrictEqual(input)
         done()

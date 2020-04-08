@@ -1,7 +1,7 @@
-module.exports = (ProcessElement) => {
+module.exports = (File) => {
     async function createOne(input){
         try {
-            const data = await ProcessElement.create(input)
+            const data = await File.create(input)
             return Promise.resolve(data)
         } catch (error) {
             return Promise.reject(error)
@@ -11,7 +11,7 @@ module.exports = (ProcessElement) => {
 
     async function getAll(){
         try {
-            return await ProcessElement.findAll()
+            return await File.findAll()
         } catch (error) {
             return Promise.reject(error)
         }
@@ -19,7 +19,7 @@ module.exports = (ProcessElement) => {
 
     async function getByID(id){
         try {
-            return await ProcessElement.findOne({ where: {id}})
+            return await File.findOne({ where: {id}})
         } catch (error) {
             return Promise.reject(error)
         }
@@ -29,7 +29,7 @@ module.exports = (ProcessElement) => {
         try {
             const {id, ...updateValues } = payload
 
-            const [updateState] = await ProcessElement.update(updateValues, { where: {id}})
+            const [updateState] = await File.update(updateValues, { where: {id}})
 
             const {dataValues} = updateState === 1 ? await getByID(id) : new Error("Failed to update")
             
@@ -44,7 +44,7 @@ module.exports = (ProcessElement) => {
         try {
             const {id} = payload
 
-            const deleted = await ProcessElement.destroy({ where: {id}})
+            const deleted = await File.destroy({ where: {id}})
             return Promise.resolve(deleted)
 
         } catch (error) {

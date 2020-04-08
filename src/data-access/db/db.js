@@ -1,6 +1,5 @@
 module.exports = ({ORM, url}) => {
     return () => {    
-        
         const connection = DB(url)
         
         function DB(url) {
@@ -15,9 +14,8 @@ module.exports = ({ORM, url}) => {
 
         async function isConnect(){
             try {
-                const isConnected = await connection.authenticate()
-    
-                return Promise.resolve(true)
+                if (connection)
+                    return await Promise.resolve(true)
             } catch (error) {
                 return Promise.reject(error)
             }
