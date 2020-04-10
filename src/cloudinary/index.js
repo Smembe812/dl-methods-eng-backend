@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2
-const makeUploadImage = require('./claudinary.factory')
+const makeUploadImage = require('./upload-image')
+const makeDeleteImage = require('./delete-image')
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
@@ -19,7 +20,9 @@ if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
 }
 
 const uploadImage = makeUploadImage({cloudinary})
+const deleteImage = makeDeleteImage({cloudinary})
 
 module.exports = {
-    uploadImage
+    uploadImage,
+    deleteImage
 }
