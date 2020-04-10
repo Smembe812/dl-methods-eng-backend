@@ -1,4 +1,4 @@
-const {uploadImage, deleteImage} = require('./')
+const {uploadImage, deleteImage, getAllImages} = require('./')
 const {makeFakeImage} = require('../../__test__/fixtures/index')
 
 describe('Testing upload', () => {
@@ -21,6 +21,15 @@ describe('Testing upload', () => {
         const {result} = await deleteImage(public_id)
 
         expect(result).toBe("ok")
+        done()
+    });
+
+    it('should get all images', async (done) => {
+        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
+        
+        const {resources} = await getAllImages()
+
+        expect(public_id).toBe(resources[0].public_id)
         done()
     });
 });
