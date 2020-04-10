@@ -3,24 +3,32 @@ const {
     deleteImage, 
     getAllImages, 
     deleteImages, 
-    createUploadPreset} = require('./')
+    getImagesByTag,
+    createUploadPreset,
+    deleteUploadPreset,
+    createFolder,
+    deleteFolder
+} = require('./')
 const {makeFakeImage} = require('../../__test__/fixtures/index')
 
 describe('Testing upload', () => {
-    beforeAll(async (done) => {
-       
-        done()
-    })
+    // beforeAll(async (done) => {
+
+    //     // await createFolder("test-directory")
+    //     done()
+    // })
     
     afterAll(async (done) => {
-        const {resources} = await getAllImages()
-        const results = await deleteImages([resources])
-        console.log(results)
+        const {resources} = await getImagesByTag("test_env")
+        const imagesIds = resources.map(image => image.public_id)
+        await deleteImages(imagesIds)
+        
+        // await deleteFolder("test-directory")
         done()
     })
 
     it('should upload image', async (done) => {
-        const uploaded = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
+        const uploaded = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
 
         const expected = "version"
 
@@ -29,7 +37,7 @@ describe('Testing upload', () => {
     });
 
     it('should delete image', async (done) => {
-        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
+        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
         
         const {result} = await deleteImage(public_id)
 
@@ -38,7 +46,7 @@ describe('Testing upload', () => {
     });
 
     it('should delete all images', async (done) => {
-        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
+        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
         
         const {deleted} = await deleteImages([public_id])
 
@@ -47,9 +55,18 @@ describe('Testing upload', () => {
     });
 
     it('should get all images', async (done) => {
-        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
+        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
         
         const {resources} = await getAllImages()
+
+        expect(public_id).toBe(resources[0].public_id)
+        done()
+    });
+
+    it('should get images by tag', async (done) => {
+        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
+        
+        const {resources} = await getImagesByTag("test_env")
 
         console.warn(resources)
 
@@ -57,28 +74,27 @@ describe('Testing upload', () => {
         done()
     });
 
-    it('should create upload preset', async (done) => {
+    it('should create then deleteupload preset', async (done) => {
         const {message} = await createUploadPreset(
             { 
-                name: "testEnv", 
+                name: "testCase", 
                 unsigned: true, 
-                tags: "test", 
+                tags: "testCase", 
                 allowed_formats: "jpg,png" 
             })
         expect(message).toBe("created")
+
+        const deleted = await deleteUploadPreset("testCase")
+
+        expect(deleted.message).toBe("deleted")
         done()
     });
 
-    it('should get all images', async (done) => {
-        const {public_id} = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`)
-        
-        const {resources} = await getAllImages()
-
-        console.warn(resources)
-
-        expect(public_id).toBe(resources[0].public_id)
-        done()
-    });
+    // it('should delete upload preset', async (done) => {
+    //     const {message} = await deleteUploadPreset("testEnv")
+    //     expect(message).toBe("deleted")
+    //     done()
+    // });
 
 
 });

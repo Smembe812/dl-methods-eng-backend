@@ -4,6 +4,10 @@ const makeDeleteImage = require('./delete-image')
 const makeGetAllImages = require('./get-all-images')
 const makeDeleteImages = require('./delete-images-bulk')
 const makeCreateUploadPreset = require('./create-upload-preset')
+const makeDeleteUploadPreset = require('./delete-upload-preset')
+const makeCreateFolder = require('./create-folder')
+const makeDeleteFolder = require('./delete-folder')
+const makeGetImagesByTag = require('./get-images-by-tag')
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
@@ -26,12 +30,20 @@ const uploadImage = makeUploadImage({cloudinary})
 const deleteImage = makeDeleteImage({cloudinary})
 const deleteImages = makeDeleteImages({cloudinary})
 const getAllImages = makeGetAllImages({cloudinary})
+const getImagesByTag = makeGetImagesByTag({cloudinary})
 const createUploadPreset = makeCreateUploadPreset({cloudinary})
+const deleteUploadPreset = makeDeleteUploadPreset({cloudinary})
+const createFolder = makeCreateFolder({cloudinary})
+const deleteFolder = makeDeleteFolder({cloudinary})
 
 module.exports = {
     uploadImage,
     deleteImage,
     deleteImages,
     getAllImages,
-    createUploadPreset
+    getImagesByTag,
+    createUploadPreset,
+    deleteUploadPreset,
+    createFolder,
+    deleteFolder
 }

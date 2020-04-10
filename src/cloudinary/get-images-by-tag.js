@@ -1,6 +1,6 @@
 module.exports = ({cloudinary}) => {
-    return function deleteUploadPreset(presetName){
-        return cloudinary.api.delete_upload_preset(presetName, (error, result) => {
+    return function getAllImagesByTag(tag){
+        return cloudinary.api.resources_by_tag(tag, (error, result) => {
             if (error){
                 return Promise.reject(error)
             }

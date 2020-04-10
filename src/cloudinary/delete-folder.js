@@ -1,6 +1,6 @@
 module.exports = ({cloudinary}) => {
-    return function deleteUploadPreset(presetName){
-        return cloudinary.api.delete_upload_preset(presetName, (error, result) => {
+    return function deleteFolder(folderName){
+        return cloudinary.api.delete_folder(folderName, (error, result) => {
             if (error){
                 return Promise.reject(error)
             }
