@@ -1,6 +1,6 @@
 module.exports = ({cloudinary}) => {
-    return function deleteImages(publicIDs){
-        return cloudinary.api.delete_resources(publicIDs, (error, result) => {
+    return function createUploadPreset(config){
+        return cloudinary.api.create_upload_preset(config, (error, result) => {
             if (error){
                 return Promise.reject(error)
             }
