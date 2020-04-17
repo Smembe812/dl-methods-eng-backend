@@ -4,11 +4,11 @@ const {uploadImage} = require('../../cloudinary')
 const makeUploadAnImage = require('./upload-an-image')
 const uploadAnImage = makeUploadAnImage({service, uploadImage, FError})
 
-// const makeGetAllProcessElements = require('./get-all-process-elements') 
-// const getAllProcessElements = makeGetAllProcessElements({service})
+const makeGetAllFiles = require('./get-all-files') 
+const getAllFiles = makeGetAllFiles({service})
 
-// const makeGetByIDProcessElements = require('./get-by-id-process-element')
-// const getByIDProcessElements = makeGetByIDProcessElements({service, PEError})
+const makeGetByIDFile = require('./get-by-id-file')
+const getByIDFile = makeGetByIDFile({service, FError})
 
 
 // const makeUpdateProcessElement = require('./update-a-process-element')
@@ -19,8 +19,8 @@ const uploadAnImage = makeUploadAnImage({service, uploadImage, FError})
 
 module.exports = {
     uploadAnImage,
-    // getAllProcessElements,
-    // getByIDProcessElements,
+    getAllFiles,
+    getByIDFile,
     // updateProcessElement,
     // deleteOneProcessElement
 }

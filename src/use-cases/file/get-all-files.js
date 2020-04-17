@@ -1,14 +1,14 @@
 /**
- * factory for creating a process element
+ * factory for creating a file
  * @param {object} service - Database handler
  * @return {Promise} - Promise of created instance
  */
 module.exports = ({service}) => {
 
     /**
-     * get all process elements
+     * get all files
      */
-    return async function getAllProcessElement() {
+    return async function getAllFiles() {
         try {
             return await service.getAll()
             
