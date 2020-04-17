@@ -14,15 +14,15 @@ const getByIDFile = makeGetByIDFile({service, FError})
 // const makeUpdateProcessElement = require('./update-a-process-element')
 // const updateProcessElement = makeUpdateProcessElement({service, getByIDProcessElements})
 
-// const makeDeleteProcessElement = require('./delete-a-process-element')
-// const deleteOneProcessElement = makeDeleteProcessElement({service, getByIDProcessElements, PEError})
+const makeDeleteFile = require('./delete-a-file')
+const deleteOneFile = makeDeleteFile({service, getByIDFile, FError})
 
 module.exports = {
     uploadAnImage,
     getAllFiles,
     getByIDFile,
-    // updateProcessElement,
-    // deleteOneProcessElement
+    // updateFile,
+    deleteOneFile
 }
 
 function FError(message, options = {}){
