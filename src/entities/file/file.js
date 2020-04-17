@@ -1,7 +1,7 @@
 module.exports = () => {
     return ({image, title}) =>{
         if (!image){
-            return Promise.reject(new Error("a filet must have image property"))
+            return Promise.reject(new Error("a file must have image property"))
         }
 
         if (title){

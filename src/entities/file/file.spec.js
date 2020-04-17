@@ -8,6 +8,15 @@ describe('File Entity', () => {
 
         expect(imageProps.hasOwnProperty("image")).toBe(true)
         done()
-    }
-    )
+    })
+
+    it('Must fail if no image properties provided', async (done) => {
+        const {image, ...withoutImage} = makeFakeFile() 
+
+        await expect(makeFile(withoutImage))
+            .rejects
+            .toMatchObject({message:"a file must have image property"})
+
+        done()
+    })
 });
