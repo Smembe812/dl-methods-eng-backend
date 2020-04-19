@@ -80,6 +80,22 @@ describe('file data-access', () => {
         done()
     })
 
+    it('should delete a file', async (done) => {
+        const File = makeFileModel({define, ORM})
+        const service = makeFileService(File)
+        const input = makeFakeFile()
+        
+        const {dataValues: {id}} = await service.createOne(input)
+        const second = await service.createOne(input)
+
+        const idsToDelete = [id, second.dataValues.id]
+
+        let deleted = await service.deleteBulk(idsToDelete)
+
+        expect(deleted).toStrictEqual(idsToDelete.length)
+        done()
+    })
+
     it('should fail to delete a file', async (done) => {
         const File = makeFileModel({define, ORM})
         const service = makeFileService(File)

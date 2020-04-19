@@ -52,11 +52,24 @@ module.exports = (File) => {
         }
     }
 
+    async function deleteBulk(payload){
+        try {
+            const [...ids] = payload
+
+            const deleted = await File.destroy({ where: {id: [...ids]}})
+            return Promise.resolve(deleted)
+
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return Object.freeze({
         createOne,
         getAll,
         getByID,
         updateOne,
-        deleteOne
+        deleteOne,
+        deleteBulk
     })
 }
