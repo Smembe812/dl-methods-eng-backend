@@ -62,6 +62,17 @@ describe('file data-access', () => {
 
         done()
     })
+
+    it('should get one by public_id', async (done) => {
+        const input = makeFakeFile()
+        const {dataValues: {public_id, image, title}} = await service.createOne(input)
+        
+        const fileRes = await service.getOneByPublicID(public_id) 
+        
+        expect(input).toStrictEqual({image, title, public_id})
+
+        done()
+    })
     
 
     it('should update a file', async (done) => {

@@ -6,9 +6,9 @@
  * @return {Promise} - Promise of created instance
  */
 module.exports = ({service, getByIDFile, deleteImage, FError}) => {
-    return async function deleteFile(id) {
+    return async function deleteFile(publid_id) {
         try {
-            const cloudinaryDeleted = await deleteImage(id)
+            const cloudinaryDeleted = await deleteImage(publid_id)
 
             if(cloudinaryDeleted){
                 return await service.deleteOne({id})

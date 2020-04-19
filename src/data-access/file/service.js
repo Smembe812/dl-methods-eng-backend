@@ -41,6 +41,14 @@ module.exports = (File, {QueryTypes, instance}) => {
                 return Promise.reject(error)
             }
         }
+
+        async function getOneByPublicID(public_id){
+            try {
+                return await File.findAll({ where: {public_id}})
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        }
     
         async function updateOne(payload){
             try {
@@ -87,6 +95,7 @@ module.exports = (File, {QueryTypes, instance}) => {
             getByID,
             getAllByIDs,
             getAllByPublicIDs,
+            getOneByPublicID,
             updateOne,
             deleteOne,
             deleteBulk
