@@ -1,7 +1,9 @@
 const cloudinary = require('cloudinary').v2
+
 const makeUploadImage = require('./upload-image')
 const makeDeleteImage = require('./delete-image')
 const makeGetAllImages = require('./get-all-images')
+const makeGetImagesByIDs = require('./get-images-by-ids')
 const makeDeleteImages = require('./delete-images-bulk')
 const makeCreateUploadPreset = require('./create-upload-preset')
 const makeDeleteUploadPreset = require('./delete-upload-preset')
@@ -31,6 +33,7 @@ const deleteImage = makeDeleteImage({cloudinary})
 const deleteImages = makeDeleteImages({cloudinary})
 const getAllImages = makeGetAllImages({cloudinary})
 const getImagesByTag = makeGetImagesByTag({cloudinary})
+const getImagesByIDs = makeGetImagesByIDs({cloudinary})
 const createUploadPreset = makeCreateUploadPreset({cloudinary})
 const deleteUploadPreset = makeDeleteUploadPreset({cloudinary})
 const createFolder = makeCreateFolder({cloudinary})
@@ -41,6 +44,7 @@ module.exports = {
     deleteImage,
     deleteImages,
     getAllImages,
+    getImagesByIDs,
     getImagesByTag,
     createUploadPreset,
     deleteUploadPreset,

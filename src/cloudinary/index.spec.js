@@ -4,6 +4,7 @@ const {
     getAllImages, 
     deleteImages, 
     getImagesByTag,
+    getImagesByIDs,
     createUploadPreset,
     deleteUploadPreset,
     createFolder,
@@ -71,6 +72,19 @@ describe('Testing upload', () => {
         console.warn(resources)
 
         expect(public_id).toBe(resources[0].public_id)
+        done()
+    });
+
+    it('should get images by ids', async (done) => {
+        const first = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
+        const second = await uploadImage(`${__dirname}/../../__test__/fixtures/image.jpg`, {tags: "test_env"})
+        
+        const imageIDs = [first.public_id, second.public_id]
+        const {resources} = await getImagesByIDs(imageIDs)
+
+        console.warn(resources)
+
+        expect(second.public_id).toBe(resources[1].public_id)
         done()
     });
 

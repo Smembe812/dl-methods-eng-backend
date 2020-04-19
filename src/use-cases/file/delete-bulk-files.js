@@ -11,7 +11,7 @@ module.exports = ({service, deleteImages, PEError}) => {
             // find file by its ID
             const deleted = await deleteImages(ids)
 
-            return await service.deleteOne({id})
+            return await service.deleteBulk([ids])
             
         } catch (error) {
             return Promise.reject(error)
