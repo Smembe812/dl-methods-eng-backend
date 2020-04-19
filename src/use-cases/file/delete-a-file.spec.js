@@ -33,18 +33,18 @@ describe('delete file use case', () => {
         done()
     });
 
-    // it('should fail when file id missing', async (done) => {
+    it('should fail when file id missing', async (done) => {
         
-    //     await expect(deleteOneFile(100000))
-    //         .rejects
-    //         .toMatchObject(
-    //             {
-    //                 message: "could not find the file",
-    //                 status: 404,
-    //             })
+        await expect(deleteOneFile("100000"))
+            .rejects
+            .toMatchObject(
+                {
+                    message: "could not find the file",
+                    status: 404,
+                })
         
-    //     done()
-    // });
+        done()
+    });
     
     
 });

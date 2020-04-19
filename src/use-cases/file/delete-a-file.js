@@ -11,9 +11,11 @@ module.exports = ({service, deleteImage, FError}) => {
             const cloudinaryDeleted = await deleteImage(public_id)
 
             if(cloudinaryDeleted){
-                const {dataValues: {id}}= await service.getOneByPublicID(public_id) 
-
-                return await service.deleteOne({id})
+                const file = await service.getOneByPublicID(public_id) 
+                if(!file){
+                    throw new FError('could not find the file', {status: 404})
+                }
+                return await service.deleteOne({id: file.dataValues.id})
             }
             
         } catch (error) {
