@@ -25,6 +25,14 @@ module.exports = (File) => {
         }
     }
 
+    async function getAllByIDs([...ids]){
+        try {
+            return await File.findAll({ where: {id: [...ids]}})
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     async function updateOne(payload){
         try {
             const {id, ...updateValues } = payload
@@ -68,6 +76,7 @@ module.exports = (File) => {
         createOne,
         getAll,
         getByID,
+        getAllByIDs,
         updateOne,
         deleteOne,
         deleteBulk

@@ -38,7 +38,24 @@ describe('file data-access', () => {
 
         expect(fileRes.dataValues).toStrictEqual((dataValues))
 
-        //expect({title, content}).toStrictEqual(input)
+        done()
+    })
+
+    it('should get all by id', async (done) => {
+        const File = makeFileModel({define, ORM})
+        const service = makeFileService(File)
+        
+        const input = makeFakeFile()
+        const {dataValues: {id}, dataValues} = await service.createOne(input)
+        const second = await service.createOne(input)
+        
+        const idsToGet = [id, second.dataValues.id]
+        
+        const fileRes = await service.getAllByIDs(idsToGet) 
+
+        expect(fileRes.length > 1).toBe(true)
+        expect(fileRes[0].dataValues).toStrictEqual((dataValues))
+
         done()
     })
     
@@ -80,7 +97,7 @@ describe('file data-access', () => {
         done()
     })
 
-    it('should delete a file', async (done) => {
+    it('should bulk delete files', async (done) => {
         const File = makeFileModel({define, ORM})
         const service = makeFileService(File)
         const input = makeFakeFile()
