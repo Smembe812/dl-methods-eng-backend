@@ -2,20 +2,17 @@
  * factory for creating a file
  * @param {object} service - Database handler
  * @param {Function} getByIDFile - Get a file by id use case
- * @param {Constructor} PEError - file error constructor
+ * @param {Constructor} FError - file error constructor
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, getByIDFile, FError}) => {
+module.exports = ({service, getByIDFile, deleteImage, FError}) => {
     return async function deleteFile(id) {
         try {
-            // find file by its ID
-            const deleted = await getByIDFile(id)
+            const cloudinaryDeleted = await deleteImage(id)
 
-            if(!deleted){
-                throw new FError('could not find the file', {status: 404})
+            if(cloudinaryDeleted){
+                return await service.deleteOne({id})
             }
-
-            return await service.deleteOne({id})
             
         } catch (error) {
             return Promise.reject(error)

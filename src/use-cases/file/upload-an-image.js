@@ -18,7 +18,7 @@ module.exports = ({service, uploadImage, FError}) => {
                 cloudinaryImage = await uploadImage(directory)
             }
 
-            const data = await makeFile({title, image: JSON.stringify(cloudinaryImage)})
+            const data = await makeFile({title, image: cloudinaryImage})
     
             return await service.createOne(data)
             

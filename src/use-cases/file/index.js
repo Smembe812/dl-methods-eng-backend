@@ -1,5 +1,5 @@
 const {service} = require('../../data-access/file')
-const {uploadImage} = require('../../cloudinary')
+const {uploadImage, deleteImage} = require('../../cloudinary')
 
 const makeUploadAnImage = require('./upload-an-image')
 const uploadAnImage = makeUploadAnImage({service, uploadImage, FError})
@@ -15,7 +15,7 @@ const getByIDFile = makeGetByIDFile({service, FError})
 // const updateProcessElement = makeUpdateProcessElement({service, getByIDProcessElements})
 
 const makeDeleteFile = require('./delete-a-file')
-const deleteOneFile = makeDeleteFile({service, getByIDFile, FError})
+const deleteOneFile = makeDeleteFile({service, getByIDFile, deleteImage, FError})
 
 module.exports = {
     uploadAnImage,
