@@ -1,4 +1,4 @@
-const {uploadAnImage} = require('../../use-cases/file')
+const {uploadAnImage, getByIDFile} = require('../../use-cases/file')
 const makeUploadFile = require('./upload-file')
 
 // const {updateFile} = require('../../use-cases/file')
@@ -8,7 +8,7 @@ const makeUploadFile = require('./upload-file')
 // const makeGetAllFile = require('./get-all-Files')
 
 // const {getByIDFile} = require('../../use-cases/file')
-// const makeGetByIDFile = require('./get-by-id-File')
+const makeGetByIDFile = require('./get-by-id-file')
 
 // const {deleteOneFile} = require('../../use-cases/file')
 // const makeDeleteOneFile = require('./delete-a-File')
@@ -16,13 +16,13 @@ const makeUploadFile = require('./upload-file')
 const uploadFileController = makeUploadFile({uploadAnImage})
 // const updateOneFileController = makeUpdateFile({updateFile})
 // const getAllFilesController = makeGetAllFile({getAllFiles})
-// const getByIDFileController = makeGetByIDFile({getByIDFile})
+const getByIDFileController = makeGetByIDFile({getByIDFile})
 // const deleteOneFileContoller = makeDeleteOneFile({deleteOneFile})
 
 module.exports = {
     uploadFileController,
     // updateOneFileController,
     // getAllFilesController,
-    // getByIDFileController,
+    getByIDFileController,
     // deleteOneFileContoller
 }
