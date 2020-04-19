@@ -44,7 +44,7 @@ module.exports = (File, {QueryTypes, instance}) => {
 
         async function getOneByPublicID(public_id){
             try {
-                return await File.findAll({ where: {public_id}})
+                return await File.findOne({ where: {public_id}})
             } catch (error) {
                 return Promise.reject(error)
             }

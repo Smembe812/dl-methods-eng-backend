@@ -15,7 +15,7 @@ const getByIDFile = makeGetByIDFile({service, FError})
 // const updateProcessElement = makeUpdateProcessElement({service, getByIDProcessElements})
 
 const makeDeleteFile = require('./delete-a-file')
-const deleteOneFile = makeDeleteFile({service, getByIDFile, deleteImage, FError})
+const deleteOneFile = makeDeleteFile({service, deleteImage, FError})
 
 module.exports = {
     uploadAnImage,

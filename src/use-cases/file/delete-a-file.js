@@ -5,12 +5,14 @@
  * @param {Constructor} FError - file error constructor
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, getByIDFile, deleteImage, FError}) => {
-    return async function deleteFile(publid_id) {
+module.exports = ({service, deleteImage, FError}) => {
+    return async function deleteFile(public_id) {
         try {
-            const cloudinaryDeleted = await deleteImage(publid_id)
+            const cloudinaryDeleted = await deleteImage(public_id)
 
             if(cloudinaryDeleted){
+                const {dataValues: {id}}= await service.getOneByPublicID(public_id) 
+
                 return await service.deleteOne({id})
             }
             
