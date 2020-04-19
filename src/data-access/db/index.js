@@ -1,4 +1,4 @@
-const Sequelize =  require('sequelize')
+const { Sequelize, DataTypes, Model, QueryTypes } =  require('sequelize')
 const db = require('./db')
 
 if (process.env.NODE_ENV !== 'production'){
@@ -7,4 +7,19 @@ if (process.env.NODE_ENV !== 'production'){
 
 const dbConnection = db({ORM: Sequelize, url: process.env.DATABASE_URL})
 
-module.exports = dbConnection()
+const {
+    isConnect,
+    define,
+    ORM,
+    instance
+} =  dbConnection()
+
+module.exports = {
+    Model, 
+    isConnect,
+    define,
+    ORM,
+    instance, 
+    DataTypes,
+    QueryTypes
+}

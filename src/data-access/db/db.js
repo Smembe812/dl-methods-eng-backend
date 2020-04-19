@@ -4,13 +4,11 @@ module.exports = ({ORM, url}) => {
         
         function DB(url) {
             try {
-                return new ORM(url)
-                
+                return new ORM(url) 
             } catch (error) {
                 return Promise.reject(error)
             }
         }
-
 
         async function isConnect(){
             try {
@@ -28,12 +26,21 @@ module.exports = ({ORM, url}) => {
         function define(name, props, options = null){
             return connection.define(name, props, options)
         }
-    
+        
+        function instance(connection){
+            try {
+                if (connection)
+                    return connection
+            } catch (error) {
+                return Promise.reject(error)
+            }
+        }
+        
         return Object.freeze({
             isConnect,
-            Model,
             define,
-            ORM
+            ORM,
+            instance: instance(connection)
         })
     }
 }

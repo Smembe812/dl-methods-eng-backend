@@ -8,13 +8,14 @@ module.exports = () => {
             return Promise.resolve(
                 Object.freeze({
                     title, 
-                    image
+                    image,
+                    public_id: image.public_id
                 })
             )
         }
 
         return Promise.resolve(
-            Object.freeze({image})
+            Object.freeze({image, public_id: image.public_id})
         )
     }
 }

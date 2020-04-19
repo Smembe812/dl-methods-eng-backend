@@ -1,25 +1,21 @@
 const makeFileModel = require('./model')
-const makeFileService = require('./service')
 const {define, ORM} = require('../db/')
+
+const {service} = require('./')
 
 const {makeFakeFile} = require('../../../__test__/fixtures/')
 
 
 describe('file data-access', () => {
     it('should create new file', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
         const input = makeFakeFile()
 
-        const {dataValues: {title, image}} = await service.createOne(input)
-        expect({title, image}).toStrictEqual(input)
+        const {dataValues: {title, image, public_id}} = await service.createOne(input)
+        expect({title, image, public_id}).toStrictEqual(input)
         done()
     });
 
     it('should get all files', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
-
         const input = makeFakeFile()
         await service.createOne(input)
         const Files = await service.getAll()
@@ -29,9 +25,6 @@ describe('file data-access', () => {
     })
 
     it('should get one file by id', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
-        
         const input = makeFakeFile()
         const {dataValues: {id}, dataValues} = await service.createOne(input)
         const fileRes = await service.getByID(id)
@@ -42,9 +35,6 @@ describe('file data-access', () => {
     })
 
     it('should get all by id', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
-        
         const input = makeFakeFile()
         const {dataValues: {id}, dataValues} = await service.createOne(input)
         const second = await service.createOne(input)
@@ -58,11 +48,23 @@ describe('file data-access', () => {
 
         done()
     })
+
+    it('should get all by public_id', async (done) => {
+        const input = makeFakeFile()
+        const first = await service.createOne(input)
+        const second = await service.createOne(input)
+        
+        const idsToGet = [first.dataValues.public_id, second.dataValues.public_id]
+        
+        const fileRes = await service.getAllByPublicIDs(idsToGet) 
+        
+        expect(fileRes.length > 1).toBe(true)
+
+        done()
+    })
     
 
     it('should update a file', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
         const input = makeFakeFile()
         
         const {dataValues: {id}} = await service.createOne(input)
@@ -85,8 +87,6 @@ describe('file data-access', () => {
     })
 
     it('should delete a file', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
         const input = makeFakeFile()
         
         const {dataValues: {id}} = await service.createOne(input)
@@ -98,8 +98,6 @@ describe('file data-access', () => {
     })
 
     it('should bulk delete files', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
         const input = makeFakeFile()
         
         const {dataValues: {id}} = await service.createOne(input)
@@ -114,8 +112,6 @@ describe('file data-access', () => {
     })
 
     it('should fail to delete a file', async (done) => {
-        const File = makeFileModel({define, ORM})
-        const service = makeFileService(File)
         const input = makeFakeFile()
         
         const {dataValues: {id}} = await service.createOne(input)

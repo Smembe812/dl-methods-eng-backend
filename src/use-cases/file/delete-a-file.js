@@ -5,14 +5,14 @@
  * @param {Constructor} PEError - file error constructor
  * @return {Promise} - Promise of created instance
  */
-module.exports = ({service, getByIDFile, PEError}) => {
-    return async function deleteProcessElement(id) {
+module.exports = ({service, getByIDFile, FError}) => {
+    return async function deleteFile(id) {
         try {
             // find file by its ID
             const deleted = await getByIDFile(id)
 
             if(!deleted){
-                throw new PEError('could not find the file', {status: 404})
+                throw new FError('could not find the file', {status: 404})
             }
 
             return await service.deleteOne({id})

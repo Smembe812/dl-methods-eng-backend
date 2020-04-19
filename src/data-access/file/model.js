@@ -5,7 +5,10 @@ module.exports = ({define, ORM}) => {
             type: Types.STRING
         },
         image: {
-            type: Types.JSON
+            type: Types.JSONB
+        },
+        public_id:{
+            type: Types.STRING
         }
     },
     {})
