@@ -1,15 +1,23 @@
-const {getAllTechniquesController, postTechniqueController} = require('./')
-const {makeFakeTechnique} = require('../../../__test__/fixtures')
+const {getAllFilesController, uploadFileController} = require('./')
+const {makeFakeFile} = require('../../../__test__/fixtures')
 
-describe('getall techniques controller', () => {
+describe('getall files controller', () => {
     
-    it('should succesfully get all techniques', async (done) => {
-        const fakeTechniquePost = makeFakeTechnique()
+    it('should succesfully get all files', async (done) => {
+        const fakeFile = makeFakeFile()
 
-        await postTechniqueController({body: fakeTechniquePost})
+        await uploadFileController({
+            body: [
+                {
+                    directory: `${__dirname}/../../../__test__/fixtures/image.jpg`,
+                    options: {tags: "test_env"}
+                },
+                {title: fakeFile.title}
+            ]
+        })
          
-        const aTechniques = await getAllTechniquesController({})
-        expect(aTechniques.length > 0).toBe((true))
+        const allFiles = await getAllFilesController({})
+        expect(allFiles.length > 0).toBe((true))
         done()
     })
 });
