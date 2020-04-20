@@ -3,8 +3,6 @@ module.exports = ({uploadedImageToBD}) => {
         try {
             const {body, file} = httpRequest
 
-            console.warn(httpRequest)
-
             const strippedBody = {
                 ...body,
                 image: file

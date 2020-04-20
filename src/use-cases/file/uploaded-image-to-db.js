@@ -10,7 +10,16 @@ module.exports = ({service}) => {
         try {
             const data = await makeFile(payload)
     
-            return await service.createOne(data)
+            const {dataValues:{image, ...restDataValues}, ...rest} = await service.createOne(data)
+
+            const file = {
+                dataValues: {
+                    image: JSON.parse(image),
+                    ...restDataValues
+                },
+                ...rest
+            }
+            return Promise.resolve(file)
             
         } catch (error) {
             return Promise.reject(error)

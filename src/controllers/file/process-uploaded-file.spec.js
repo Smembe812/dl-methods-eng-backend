@@ -17,7 +17,7 @@ describe('process uploaded file controller', () => {
                 title
             },
             file:{
-                image,
+                ...image,
             }
         })
 

@@ -1,8 +1,9 @@
-const { processUplodedFileController, 
-        getAllFilesController, 
-        getByIDFileController,
-        // updateOneTechniqueController,
-        deleteOneFileContoller } = require('../controllers/file')
+const { 
+    processUplodedFileController, 
+    getAllFilesController, 
+    getByIDFileController,
+    // updateOneTechniqueController,
+    deleteOneFileContoller } = require('../controllers/file')
 
 const {cloudinary} = require('../cloudinary')
 
@@ -22,7 +23,7 @@ module.exports = ({express, makeCallback}) => {
     router.get('/', makeCallback(getAllFilesController))
     router.get('/:id', makeCallback(getByIDFileController))
     // router.put('/:id', makeCallback(updateOneTechniqueController))
-    router.delete('/:id', makeCallback(deleteOneFileContoller))
+    router.delete('/:public_id', makeCallback(deleteOneFileContoller))
     
     return router
 }

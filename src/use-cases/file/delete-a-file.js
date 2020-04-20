@@ -10,6 +10,8 @@ module.exports = ({service, deleteImage, FError}) => {
         try {
             const cloudinaryDeleted = await deleteImage(public_id)
 
+            console.warn(cloudinaryDeleted)
+
             if(cloudinaryDeleted){
                 const file = await service.getOneByPublicID(public_id) 
                 if(!file){

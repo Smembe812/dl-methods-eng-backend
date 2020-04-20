@@ -20,7 +20,16 @@ module.exports = ({service, uploadImage, FError}) => {
 
             const data = await makeFile({title, image: cloudinaryImage})
     
-            return await service.createOne(data)
+            const {dataValues: {image, ...restDataValues}, ...rest} = await service.createOne(data)
+
+            const file = {
+                dataValues: {
+                    image: JSON.parse(image),
+                    ...restDataValues
+                },
+                ...rest
+            }
+            return Promise.resolve(file)
             
         } catch (error) {
             if (error.error.code === "ENOENT"){

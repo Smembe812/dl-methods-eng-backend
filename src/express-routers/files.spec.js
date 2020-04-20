@@ -37,21 +37,20 @@ describe('file routes', () => {
     });
     
 
-    // it('should get all files', async (done) => {
-    //     const fakeFile = makeFakeFile()
-    //     request(server)
-    //         .post('/api/files')
-    //         .send(fakeFile)
-    //         .then(()=>{
-
-    //             request(server).get('/api/files')
-    //             .end((error, response) => {
+    it('should get all files', async (done) => {
+        const fakeFile = makeFakeFile()
+        request(server)
+            .post('/api/files')
+            .attach("file", `${__dirname}/../../__test__/fixtures/image.jpg`)
+            .then(()=>{
+                request(server).get('/api/files')
+                .end((error, response) => {
                     
-    //                 expect(response.statusCode).toBe(200)
-    //                 done()
-    //             })
-    //         })
-    // })
+                    expect(response.statusCode).toBe(200)
+                    done()
+                })
+            })
+    })
 
     // it('should get by id files', async (done) => {
     //     const fakeFile = makeFakeFile()
@@ -96,25 +95,25 @@ describe('file routes', () => {
     // //         })
     // // })
 
-    // it('should delete by id files', async (done) => {
-    //     const fakeFile = makeFakeFile()
-    //     request(server)
-    //         .post('/api/files')
-    //         .send(fakeFile)
-    //         .then((response)=>{
-    //             const {dataValues: {id, createdAt}} = response.body
-
-    //             request(server)
-    //             .delete(`/api/files/${id}`)
-    //             .end((error, response) => {
-    //                 const expected = {deleted: true, status: 201}
-    //                 const received = response.body
-    //                 expect(response.statusCode).toBe(201)
-    //                 expect(received).toStrictEqual(expected)
-    //                 done()
-    //             })
-    //         })
-    // })
+    it('should delete by id files', async (done) => {
+        const fakeFile = makeFakeFile()
+        request(server)
+            .post('/api/files')
+            .attach("file", `${__dirname}/../../__test__/fixtures/image.jpg`)
+            .then((response)=>{
+                const {dataValues: {id, public_id}} = response.body
+                
+                request(server)
+                .delete(`/api/files/${public_id}`)
+                .end((error, response) => {
+                    const expected = {deleted: true, status: 201}
+                    const received = response.body
+                    expect(response.statusCode).toBe(201)
+                    expect(received).toStrictEqual(expected)
+                    done()
+                })
+            })
+    })
 
     // it('should fail to delete by id files', async (done) => {
     //     const fakeFile = makeFakeFile()
