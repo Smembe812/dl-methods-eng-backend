@@ -1,7 +1,8 @@
 module.exports = ({uploadedImageToBD}) => {
     return async (httpRequest, next) => {
         try {
-            const {body, file} = httpRequest
+            const {body, file, query} = httpRequest
+            
 
             const strippedBody = {
                 ...body,
@@ -10,6 +11,12 @@ module.exports = ({uploadedImageToBD}) => {
 
             const {dataValues} = await uploadedImageToBD(strippedBody)
     
+            if(query && query.editor){
+            	const {image: {secure_url}} = dataValues
+            	
+            	return Promise.resolve({file: {url: secure_url}})
+            }
+            
             return Promise.resolve({dataValues, status: 201})
         } catch (error) {
             return Promise.reject(error)

@@ -22,13 +22,32 @@ describe('process uploaded file controller', () => {
         })
 
         expect(({...restOfProps})).toStrictEqual({
-            image: JSON.stringify(image), 
+            image, 
             title, 
             public_id
         })
 
         done()
     })
+    
+    it('succesfully process new file for editor', async (done) => {
+
+        const {image, public_id, title} = makeFakeFile()
+
+        const { file } = await processUplodedFileController({
+            file:{
+                ...image,
+            },
+            query: {
+            	editor: true
+            }
+        })
+
+        expect(file.hasOwnProperty("url")).toBe(true)
+
+        done()
+    })
+    
     it('should error at faliure', async (done) => {
 
         const {title, ...restOfProps} = makeFakeFile()
