@@ -4,6 +4,9 @@ const {uploadImage, deleteImage} = require('../../cloudinary')
 const makeUploadAnImage = require('./upload-an-image')
 const uploadAnImage = makeUploadAnImage({service, uploadImage, FError})
 
+const makeUploadedImageToDB = require('./uploaded-image-to-db')
+const uploadedImageToBD = makeUploadedImageToDB({service})
+
 const makeGetAllFiles = require('./get-all-files') 
 const getAllFiles = makeGetAllFiles({service})
 
@@ -19,6 +22,7 @@ const deleteOneFile = makeDeleteFile({service, deleteImage, FError})
 
 module.exports = {
     uploadAnImage,
+    uploadedImageToBD,
     getAllFiles,
     getByIDFile,
     // updateFile,
