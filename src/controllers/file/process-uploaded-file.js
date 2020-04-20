@@ -1,9 +1,16 @@
 module.exports = ({uploadedImageToBD}) => {
     return async (httpRequest, next) => {
         try {
-            const {body} = httpRequest
+            const {body, file} = httpRequest
 
-            const {dataValues} = await uploadedImageToBD(body)
+            console.warn(httpRequest)
+
+            const strippedBody = {
+                ...body,
+                image: file
+            }
+
+            const {dataValues} = await uploadedImageToBD(strippedBody)
     
             return Promise.resolve({dataValues, status: 201})
         } catch (error) {

@@ -14,8 +14,10 @@ describe('process uploaded file controller', () => {
             }
         } = await processUplodedFileController({
             body: {
-                image,
                 title
+            },
+            file:{
+                image,
             }
         })
 
@@ -32,7 +34,7 @@ describe('process uploaded file controller', () => {
         const {title, ...restOfProps} = makeFakeFile()
 
 
-        await expect(processUplodedFileController({body: {title}}))
+        await expect(processUplodedFileController({body: {title}, file: null}))
                     .rejects
                     .toEqual(expect.any(Error))
         done()

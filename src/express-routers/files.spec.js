@@ -30,8 +30,8 @@ describe('file routes', () => {
                 
 
                 expect(response.statusCode).toBe(201)
-                expect({...fileProps})
-                    .toStrictEqual(fakeFile)
+                expect(({...fileProps}).hasOwnProperty("image"))
+                    .toBe(true)
                 done()
             })
     });

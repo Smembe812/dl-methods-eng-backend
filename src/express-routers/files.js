@@ -1,4 +1,4 @@
-const { uploadFileController, 
+const { processUplodedFileController, 
         getAllFilesController, 
         getByIDFileController,
         // updateOneTechniqueController,
@@ -18,7 +18,7 @@ const uploadMiddleware = makeUploadMiddleware({cloudinary})
  */
 module.exports = ({express, makeCallback}) => {
     const router = express.Router()  
-    router.post('/', uploadMiddleware, makeCallback(uploadFileController))
+    router.post('/', uploadMiddleware, makeCallback(processUplodedFileController))
     router.get('/', makeCallback(getAllFilesController))
     router.get('/:id', makeCallback(getByIDFileController))
     // router.put('/:id', makeCallback(updateOneTechniqueController))
