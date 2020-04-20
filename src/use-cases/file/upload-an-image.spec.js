@@ -13,10 +13,8 @@ describe('upload file use case', () => {
             },
             {title: payload.title}
         ])
-        
-        const imageObj = JSON.parse(image)
 
-        expect(imageObj.hasOwnProperty("version")).toBe(true)
+        expect(image.hasOwnProperty("version")).toBe(true)
         
         done()
     });

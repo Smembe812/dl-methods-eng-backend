@@ -7,10 +7,8 @@ describe('uploaded file to db use case', () => {
         const payload = makeFakeFile()
 
         const {dataValues: {title, image}} = await uploadedImageToBD({title: payload.title, image: payload.image})
-        
-        const imageObj = JSON.parse(image)
 
-        expect(imageObj.hasOwnProperty("version")).toBe(true)
+        expect(image.hasOwnProperty("version")).toBe(true)
         
         done()
     });

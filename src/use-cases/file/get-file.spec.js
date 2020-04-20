@@ -41,7 +41,7 @@ describe('get files use cases', () => {
 
         const {dataValues: {image}} = await getByIDFile(id)
       
-        expect(JSON.parse(image).hasOwnProperty("version")).toBe(true)
+        expect(image.hasOwnProperty("version")).toBe(true)
         done()
     })
 

@@ -4,15 +4,7 @@ module.exports = ({uploadAnImage}) => {
             const {body, file} = httpRequest
             
             console.warn(httpRequest, file)
-
-            const strippedBody = [
-                {
-                    directory: file.path
-                },
-                {title: body.title || null}
-            ]
-
-            const {dataValues} = await uploadAnImage(strippedBody)
+            const {dataValues} = await uploadAnImage(body)
     
             return Promise.resolve({dataValues, status: 201})
         } catch (error) {
