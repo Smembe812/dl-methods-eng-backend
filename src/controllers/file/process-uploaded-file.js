@@ -14,7 +14,7 @@ module.exports = ({uploadedImageToBD}) => {
             if(query && query.editor){
             	const {image: {secure_url}} = dataValues
             	
-            	return Promise.resolve({file: {url: secure_url}})
+            	return Promise.resolve({file: {url: secure_url}, "success" : 1,})
             }
             
             return Promise.resolve({dataValues, status: 201})
