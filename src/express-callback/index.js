@@ -1,9 +1,16 @@
 function makeExpressCallback(controller){
     return (req, res, next) => {
-        const {params, query, method, path, body} = req
+        let httpRequest;
+        const {params, query, method, path, body, file} = req
 
-        const httpRequest = {
-            params, query, method, path, body
+        if (file){
+            httpRequest = {
+                params, query, method, path, body, file
+            }
+        }else{
+            httpRequest = {
+                params, query, method, path, body
+            }
         }
 
         controller(httpRequest, next)

@@ -1,4 +1,4 @@
-const cloudinary = require('cloudinary').v2
+const cloudinary = require('cloudinary')
 
 const makeUploadImage = require('./upload-image')
 const makeDeleteImage = require('./delete-image')
@@ -19,7 +19,7 @@ if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
     console.warn('!! cloudinary config is undefined !!');
     console.warn('export CLOUDINARY_URL or set dotenv file');
 } else {
-    cloudinary.config(
+    cloudinary.v2.config(
         { 
             cloud_name: process.env.CLOUD_NAME, 
             api_key: process.env.API_KEY, 
@@ -28,16 +28,16 @@ if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
     );
 }
 
-const uploadImage = makeUploadImage({cloudinary})
-const deleteImage = makeDeleteImage({cloudinary})
-const deleteImages = makeDeleteImages({cloudinary})
-const getAllImages = makeGetAllImages({cloudinary})
-const getImagesByTag = makeGetImagesByTag({cloudinary})
-const getImagesByIDs = makeGetImagesByIDs({cloudinary})
-const createUploadPreset = makeCreateUploadPreset({cloudinary})
-const deleteUploadPreset = makeDeleteUploadPreset({cloudinary})
-const createFolder = makeCreateFolder({cloudinary})
-const deleteFolder = makeDeleteFolder({cloudinary})
+const uploadImage = makeUploadImage({cloudinary: cloudinary.v2})
+const deleteImage = makeDeleteImage({cloudinary: cloudinary.v2})
+const deleteImages = makeDeleteImages({cloudinary: cloudinary.v2})
+const getAllImages = makeGetAllImages({cloudinary: cloudinary.v2})
+const getImagesByTag = makeGetImagesByTag({cloudinary: cloudinary.v2})
+const getImagesByIDs = makeGetImagesByIDs({cloudinary: cloudinary.v2})
+const createUploadPreset = makeCreateUploadPreset({cloudinary: cloudinary.v2})
+const deleteUploadPreset = makeDeleteUploadPreset({cloudinary: cloudinary.v2})
+const createFolder = makeCreateFolder({cloudinary: cloudinary.v2})
+const deleteFolder = makeDeleteFolder({cloudinary: cloudinary.v2})
 
 module.exports = {
     uploadImage,
@@ -49,5 +49,6 @@ module.exports = {
     createUploadPreset,
     deleteUploadPreset,
     createFolder,
-    deleteFolder
+    deleteFolder,
+    cloudinary
 }

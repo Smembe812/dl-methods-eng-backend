@@ -10,10 +10,12 @@ module.exports = ({express}) => {
     const knowledgeResourceRoutes = require('./knowledge-resource')({express, makeCallback})
     const processElementRoutes = require('./process-element')({express, makeCallback})
     const techniqueRoutes = require('./technique')({express, makeCallback})
+    const fileRoute = require('./files')({express, makeCallback})
 
     mainRouter.use('/knowledge-resources', knowledgeResourceRoutes)
     mainRouter.use('/process-elements', processElementRoutes)
     mainRouter.use('/techniques', techniqueRoutes)
+    mainRouter.use('/files', fileRoute)
 
     return mainRouter
 }
