@@ -2,6 +2,7 @@ module.exports = (File, {QueryTypes, instance}) => {
         async function createOne(input){
             try {
                 const data = await File.create(input)
+                
                 return Promise.resolve(data)
             } catch (error) {
                 return Promise.reject(error)
