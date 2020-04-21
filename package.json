@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "start": "nodemon ./src/server.js"
+    "start": "nodemon ./src/server.js",
+    "migration:generate": "node sequelize/generate.js"
   },
   "keywords": [
     "dhis2",
@@ -18,6 +19,7 @@
     "faker": "^4.1.0",
     "jest": "^25.1.0",
     "jsdoc": "^3.6.3",
+    "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
   },
   "dependencies": {
