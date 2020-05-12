@@ -57,29 +57,30 @@ describe('user data-access', () => {
     })
     
 
-    // it('should update a technique', async (done) => {
-    //     const User = makeUserModel({define, ORM})
-    //     const service = makeUserService(User)
-    //     const input = makeFakeUser()
+    it('should update a user', async (done) => {
+        const User = makeUserModel({define, ORM})
+        const service = makeUserService(User)
         
-    //     const {dataValues: {id}} = await service.createOne(input)
+        const input = makeFakeUser()
+        const dbInput = userLocalMock(input)
+        
+        const {dataValues: {id}} = await service.createOne(dbInput)
     
-    //     const input2 = Object.assign(makeFakeUser(), {id})
+        const input2 = Object.assign(makeFakeUser(), {id})
 
-    //     const {title, aim, description, outcome} = input2
+        const {firstName, lastName, middleName} = input2
 
-    //     let {...updatedValues} = await service.updateOne(input2)
+        let {...updatedValues} = await service.updateOne(input2)
          
-    //     updatedValues = {
-    //         title: updatedValues.title,
-    //         aim: updatedValues.aim, 
-    //         description: updatedValues.description, 
-    //         outcome: updatedValues.outcome
-    //     }
+        updatedValues = {
+            firstName: updatedValues.firstName,
+            lastName: updatedValues.lastName, 
+            middleName: updatedValues.middleName, 
+        }
 
-    //     expect(updatedValues).toStrictEqual({title, aim, description, outcome})
-    //     done()
-    // })
+        expect(updatedValues).toStrictEqual({firstName, lastName, middleName})
+        done()
+    })
 
     // it('should delete a technique', async (done) => {
     //     const User = makeUserModel({define, ORM})
