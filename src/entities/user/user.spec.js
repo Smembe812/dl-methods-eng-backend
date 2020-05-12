@@ -5,10 +5,7 @@ describe('user entity', () => {
     it('Must have first name', async (done) => {
         const {firstName, ...rest} = makeFakeUser()
         const UserFactory = makeUser()
-
-        const user = await UserFactory("local", rest)
-
-        console.log(user)
+        
         await expect(UserFactory("local", rest))
         .rejects
         .toMatchObject({message:"a user must have a first name"})

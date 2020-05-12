@@ -65,24 +65,43 @@ module.exports = () => {
     
             return Promise.resolve(
     
-                /**
-                 * @typedef {Object} User
-                 * @property {String} firstName
-                 * @property {String} lastName
-                 * @property {String} middleName
-                 * @property {String} userName
-                 * @property {String} avatar
-                 * @property {Object} local
-                 * @property {String} local.email
-                 * @property {String} local.password
-                 */
                 Object.freeze({
-                    firstName, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} firstName
+                     */
+                    firstName,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} lastName
+                     */
                     lastName,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} fullName
+                     */
                     fullName: name,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} middleName
+                     */
                     middleName, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} userName
+                     */
                     userName, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} avatar
+                     */
                     avatar, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {Object} local
+                     * @property {String} local.email
+                     * @property {String} local.password
+                     */
                     local
                 })
             )
@@ -109,24 +128,44 @@ module.exports = () => {
     
             return Promise.resolve(
     
-                /**
-                 * @typedef {Object} User
-                 * @property {String} firstName
-                 * @property {String} lastName
-                 * @property {String} middleName
-                 * @property {String} userName
-                 * @property {String} avatar
-                 * @property {Object} google
-                 * @property {String} google.id
-                 * @property {String} google.email
-                 */
+                
                 Object.freeze({
-                    firstName, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} firstName
+                     */
+                    firstName,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} lastName
+                     */
                     lastName,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} fullName
+                     */
                     fullName,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} middleName
+                     */
                     middleName, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} userName
+                     */
                     userName, 
-                    avatar, 
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} avatar
+                     */ 
+                    avatar,
+                    /**
+                     * @typedef {Object} User
+                     * @property {Object} google
+                     * @property {String} google.id
+                     * @property {String} google.email
+                     */
                     google
                 })
             )
