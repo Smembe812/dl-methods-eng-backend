@@ -2,104 +2,107 @@ const makeUserModel = require('./model')
 const makeUserService = require('./service')
 const {define, ORM} = require('../db/')
 
-const {makeFakeUser} = require('../../../__test__/fixtures/')
+const {makeFakeUser, userLocalMock} = require('../../../__test__/fixtures/')
 
 
-describe('technique data-access', () => {
-    it('should create new technique', async (done) => {
+describe('user data-access', () => {
+    it('should create new user', async (done) => {
             const User = makeUserModel({define, ORM})
             const service = makeUserService(User)
             const input = makeFakeUser()
-            
+            const dbInput = userLocalMock(input)
+
             const {
                 dataValues: {
                     id,
                     updatedAt,
                     createdAt,
+                    google,
                     ...userProps
                 }
-            } = await service.createOne(input)
-            
-            expect(userProps).toStrictEqual(input)
+            } = await service.createOne(dbInput)
+
+            console.log(userProps)
+            expect(userProps).toStrictEqual(dbInput)
             done()
     });
 
-    it('should get all techniques', async (done) => {
-        const User = makeUserModel({define, ORM})
-        const service = makeUserService(User)
+    // it('should get all techniques', async (done) => {
+    //     const User = makeUserModel({define, ORM})
+    //     const service = makeUserService(User)
 
-        const input = makeFakeUser()
-        await service.createOne(input)
-        const Users = await service.getAll()
+    //     const input = makeFakeUser()
+    //     await service.createOne(input)
+    //     const Users = await service.getAll()
 
-        expect(Techniques.length > 0).toBe((true))
-        done()
-    })
+    //     expect(Techniques.length > 0).toBe((true))
+    //     done()
+    // })
 
-    it('should get one technique by id', async (done) => {
-        const User = makeUserModel({define, ORM})
-        const service = makeUserService(User)
+    // it('should get one technique by id', async (done) => {
+    //     const User = makeUserModel({define, ORM})
+    //     const service = makeUserService(User)
         
-        const input = makeFakeUser()
-        const {dataValues: {id}, dataValues} = await service.createOne(input)
-        const aTechnique = await service.getByID(id)
+    //     const input = makeFakeUser()
+    //     const {dataValues: {id}, dataValues} = await service.createOne(input)
+    //     const aTechnique = await service.getByID(id)
 
-        expect(aTechnique.dataValues).toStrictEqual((dataValues))
+    //     expect(aTechnique.dataValues).toStrictEqual((dataValues))
 
-        //expect({title, content}).toStrictEqual(input)
-        done()
-    })
+    //     //expect({title, content}).toStrictEqual(input)
+    //     done()
+    // })
     
 
-    it('should update a technique', async (done) => {
-        const User = makeUserModel({define, ORM})
-        const service = makeUserService(User)
-        const input = makeFakeUser()
+    // it('should update a technique', async (done) => {
+    //     const User = makeUserModel({define, ORM})
+    //     const service = makeUserService(User)
+    //     const input = makeFakeUser()
         
-        const {dataValues: {id}} = await service.createOne(input)
+    //     const {dataValues: {id}} = await service.createOne(input)
     
-        const input2 = Object.assign(makeFakeUser(), {id})
+    //     const input2 = Object.assign(makeFakeUser(), {id})
 
-        const {title, aim, description, outcome} = input2
+    //     const {title, aim, description, outcome} = input2
 
-        let {...updatedValues} = await service.updateOne(input2)
+    //     let {...updatedValues} = await service.updateOne(input2)
          
-        updatedValues = {
-            title: updatedValues.title,
-            aim: updatedValues.aim, 
-            description: updatedValues.description, 
-            outcome: updatedValues.outcome
-        }
+    //     updatedValues = {
+    //         title: updatedValues.title,
+    //         aim: updatedValues.aim, 
+    //         description: updatedValues.description, 
+    //         outcome: updatedValues.outcome
+    //     }
 
-        expect(updatedValues).toStrictEqual({title, aim, description, outcome})
-        done()
-    })
+    //     expect(updatedValues).toStrictEqual({title, aim, description, outcome})
+    //     done()
+    // })
 
-    it('should delete a technique', async (done) => {
-        const User = makeUserModel({define, ORM})
-        const service = makeUserService(User)
-        const input = makeFakeUser()
+    // it('should delete a technique', async (done) => {
+    //     const User = makeUserModel({define, ORM})
+    //     const service = makeUserService(User)
+    //     const input = makeFakeUser()
         
-        const {dataValues: {id}} = await service.createOne(input)
+    //     const {dataValues: {id}} = await service.createOne(input)
 
-        let deleted = await service.deleteOne({id})
+    //     let deleted = await service.deleteOne({id})
 
-        expect(deleted).toStrictEqual(1)
-        done()
-    })
+    //     expect(deleted).toStrictEqual(1)
+    //     done()
+    // })
 
-    it('should fail to delete a technique', async (done) => {
-        const User = makeUserModel({define, ORM})
-        const service = makeUserService(User)
-        const input = makeFakeUser()
+    // it('should fail to delete a technique', async (done) => {
+    //     const User = makeUserModel({define, ORM})
+    //     const service = makeUserService(User)
+    //     const input = makeFakeUser()
         
-        const {dataValues: {id}} = await service.createOne(input)
+    //     const {dataValues: {id}} = await service.createOne(input)
 
-        let deleted = await service.deleteOne({id: 10000})
+    //     let deleted = await service.deleteOne({id: 10000})
 
-        expect(deleted).toStrictEqual(0)
-        done()
-    })
+    //     expect(deleted).toStrictEqual(0)
+    //     done()
+    // })
 
-    it.todo('should query/filter technique')
+    // it.todo('should query/filter technique')
 });

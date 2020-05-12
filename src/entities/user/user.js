@@ -4,7 +4,7 @@
  * @author Paul Sembereka
  * @alias UserEntity
  * @returns {function}
- * @namespace UserEntityFactory
+ * @namespace User
  */
 module.exports = () => {
 

@@ -1,4 +1,16 @@
+/**
+ * Make User Service Factory
+ * @author Paul Sembereka
+ * @alias UserService
+ * @param {function} User - Sequalize user model
+ * @returns {function}
+ * @namespace User
+ */
 module.exports = (User) => {
+    /**
+     * @param {object} input - user payload obj made from User Entity factory
+     * @returns {(Promise<object>|Promise<Error>)} Promise object response from db
+     */
     async function createOne(input){
         try {
             const data = await User.create(input)
@@ -8,7 +20,9 @@ module.exports = (User) => {
         }
     }
 
-
+    /**
+     * 
+     */
     async function getAll(){
         try {
             return await User.findAll()

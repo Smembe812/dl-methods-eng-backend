@@ -28,6 +28,8 @@ function userLocalMock(userInput){
 
     const fullName = middleName ? `${firstName} ${middleName} ${lastName}` : `${firstName} ${lastName}`
     const local = {password, email}
+
+    const methods = 'local'
     
     const mockUser = {
         firstName,
@@ -36,7 +38,8 @@ function userLocalMock(userInput){
         fullName,
         userName,
         avatar,
-        local
+        local,
+        methods
     }
 
     return {...mockUser}
