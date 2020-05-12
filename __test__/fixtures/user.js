@@ -4,7 +4,7 @@ module.exports = {makeFakeUser, userLocalMock}
 
 function makeFakeUser() {
     const user = {
-        firstName: faker.name.findName(),
+        firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         userName: faker.internet.userName(),
         middleName: faker.name.firstName(),

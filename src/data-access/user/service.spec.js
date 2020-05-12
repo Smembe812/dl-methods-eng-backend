@@ -22,36 +22,39 @@ describe('user data-access', () => {
                 }
             } = await service.createOne(dbInput)
 
-            console.log(userProps)
             expect(userProps).toStrictEqual(dbInput)
             done()
     });
 
-    // it('should get all techniques', async (done) => {
-    //     const User = makeUserModel({define, ORM})
-    //     const service = makeUserService(User)
+    it('should get all users', async (done) => {
+        const User = makeUserModel({define, ORM})
+        const service = makeUserService(User)
 
-    //     const input = makeFakeUser()
-    //     await service.createOne(input)
-    //     const Users = await service.getAll()
+        const input = makeFakeUser()
+        const dbInput = userLocalMock(input)
 
-    //     expect(Techniques.length > 0).toBe((true))
-    //     done()
-    // })
+        await service.createOne(dbInput)
+        const Users = await service.getAll()
 
-    // it('should get one technique by id', async (done) => {
-    //     const User = makeUserModel({define, ORM})
-    //     const service = makeUserService(User)
+        expect(Users.length > 0).toBe((true))
+        done()
+    })
+
+    it('should get one user by id', async (done) => {
+        const User = makeUserModel({define, ORM})
+        const service = makeUserService(User)
         
-    //     const input = makeFakeUser()
-    //     const {dataValues: {id}, dataValues} = await service.createOne(input)
-    //     const aTechnique = await service.getByID(id)
+        const input = makeFakeUser()
+        const dbInput = userLocalMock(input)
 
-    //     expect(aTechnique.dataValues).toStrictEqual((dataValues))
+        const {dataValues: {id}, dataValues} = await service.createOne(dbInput)
+        const aUser = await service.getByID(id)
 
-    //     //expect({title, content}).toStrictEqual(input)
-    //     done()
-    // })
+        expect(aUser.dataValues).toStrictEqual((dataValues))
+
+        //expect({title, content}).toStrictEqual(input)
+        done()
+    })
     
 
     // it('should update a technique', async (done) => {
