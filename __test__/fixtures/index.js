@@ -3,7 +3,7 @@ const makeFakeKnowledgeResource = require('./knowledge-resource')
 const makeFakeTechnique = require('./technique')
 const makeFakeFile = require('./file')
 const makeFakeImage = require('./image')
-const makeFakeUser = require('./user')
+const {makeFakeUser, userLocalMock} = require('./user')
 
 module.exports = {
     makeFakeProcessElement,
@@ -11,5 +11,6 @@ module.exports = {
     makeFakeTechnique,
     makeFakeFile,
     makeFakeImage,
-    makeFakeUser
+    makeFakeUser,
+    userLocalMock
 }
