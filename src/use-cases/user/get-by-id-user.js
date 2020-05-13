@@ -13,7 +13,7 @@ module.exports = ({service, UError}) => {
      */
     return async function getByIDusers(id) {
         try {
-            const user =  await service.getByID(id) 
+            const user =  await service.getByID(id, {protected: true}) 
 
             if (!user){
                 throw new UError(

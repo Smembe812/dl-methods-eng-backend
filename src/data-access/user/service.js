@@ -43,8 +43,23 @@ module.exports = (User) => {
         }
     }
 
-    async function getByID(id){
+    async function getByID(id, options=null){
         try {
+            if(options && options.protected){
+                return await User.findOne({ where: {id},
+                    attributes: [
+                        "id",
+                        "firstName",
+                        "lastName",
+                        "fullName",
+                        "middleName",
+                        "userName",
+                        "avatar",
+                        "createdAt",
+                        "updatedAt"
+                    ]
+                  })
+            }
             return await User.findOne({ where: {id}})
         } catch (error) {
             return Promise.reject(error)
