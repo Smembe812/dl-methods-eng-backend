@@ -11,7 +11,6 @@ describe('user entity', () => {
         done()
     })
 
-
     it('must have last name', async (done) => {
         const {lastName, ...rest} = makeFakeUser()
 
