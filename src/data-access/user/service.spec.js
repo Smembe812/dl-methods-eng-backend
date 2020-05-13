@@ -97,18 +97,20 @@ describe('user data-access', () => {
         done()
     })
 
-    // it('should fail to delete a technique', async (done) => {
-    //     const User = makeUserModel({define, ORM})
-    //     const service = makeUserService(User)
-    //     const input = makeFakeUser()
+    it('should fail to delete a user', async (done) => {
+        const User = makeUserModel({define, ORM})
+        const service = makeUserService(User)
+
+        const input = makeFakeUser()
+        const dbInput = userLocalMock(input)
         
-    //     const {dataValues: {id}} = await service.createOne(input)
+        const {dataValues: {id}} = await service.createOne(dbInput)
 
-    //     let deleted = await service.deleteOne({id: 10000})
+        let deleted = await service.deleteOne({id: 10000})
 
-    //     expect(deleted).toStrictEqual(0)
-    //     done()
-    // })
+        expect(deleted).toStrictEqual(0)
+        done()
+    })
 
     // it.todo('should query/filter technique')
 });

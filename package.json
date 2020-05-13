@@ -22,6 +22,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.21.0",
     "cors": "^2.8.5",

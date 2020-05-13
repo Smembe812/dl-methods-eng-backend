@@ -1,11 +1,11 @@
 const {define, ORM} = require('../db/')
-const makeTechniqueSequelizeModel = require('./model.js')
-const makeTechniqueService = require('./service')
+const makeUserSequelizeModel = require('./model.js')
+const makeUserService = require('./service')
 
-const Technique = makeTechniqueSequelizeModel({define, ORM})
-const service = makeTechniqueService(Technique)
+const User = makeUserSequelizeModel({define, ORM})
+const service = makeUserService(User)
 
 module.exports = Object.freeze({
-    Technique,
+    User,
     service
 })

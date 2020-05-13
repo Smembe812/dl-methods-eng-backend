@@ -6,7 +6,8 @@
  * @returns {function}
  * @namespace User
  */
-module.exports = () => {
+module.exports = ({validator}) => {
+    const {localSchema} = validator
 
     /**
      * @param {String} method - User's auth method'
@@ -19,7 +20,7 @@ module.exports = () => {
      * @returns {(Promise<Object>|Error)} Promise object of created user or Error
      * @namespace UserEntity
      */
-    return (method, 
+    return async (method, 
             {
                 firstName, 
                 lastName, 
@@ -60,9 +61,18 @@ module.exports = () => {
 
 
             const local = {email, password}
+            try {
+                await localSchema.validateAsync(local)
+ 
+            } catch (error) {
+                return Promise.reject(new Error(error.message))
+            }
+
     
             const name = middleName ? `${firstName} ${middleName} ${lastName}` : `${firstName} ${lastName}`
-    
+            
+            const methods = "local"
+
             return Promise.resolve(
     
                 Object.freeze({
@@ -102,7 +112,12 @@ module.exports = () => {
                      * @property {String} local.email
                      * @property {String} local.password
                      */
-                    local
+                    local,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} method
+                     */
+                    methods
                 })
             )
         }
@@ -125,6 +140,8 @@ module.exports = () => {
             }
     
             const google = {profileID, email}
+
+            const methods = "google"
     
             return Promise.resolve(
     
@@ -166,7 +183,12 @@ module.exports = () => {
                      * @property {String} google.id
                      * @property {String} google.email
                      */
-                    google
+                    google,
+                    /**
+                     * @typedef {Object} UserInstance
+                     * @property {String} method
+                     */
+                    methods
                 })
             )
         }

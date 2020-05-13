@@ -4,9 +4,8 @@ const {makeFakeUser, userLocalMock} = require('../../../__test__/fixtures')
 describe('user entity', () => {
     it('Must have first name', async (done) => {
         const {firstName, ...rest} = makeFakeUser()
-        const UserFactory = makeUser()
-        
-        await expect(UserFactory("local", rest))
+
+        await expect(makeUser("local", rest))
         .rejects
         .toMatchObject({message:"a user must have a first name"})
         done()
@@ -15,9 +14,8 @@ describe('user entity', () => {
 
     it('must have last name', async (done) => {
         const {lastName, ...rest} = makeFakeUser()
-        const UserFactory = makeUser()
 
-        await expect(UserFactory("local", rest))
+        await expect(makeUser("local", rest))
         .rejects
         .toMatchObject({message:"a user must have a last name"})
         done()
@@ -25,9 +23,8 @@ describe('user entity', () => {
 
     it('must have username', async (done) => {
         const {userName, ...rest} = makeFakeUser()
-        const UserFactory = makeUser()
 
-        await expect(UserFactory("local", rest))
+        await expect(makeUser("local", rest))
         .rejects
         .toMatchObject({message:"a user must have a username"})
         done()
@@ -35,9 +32,8 @@ describe('user entity', () => {
 
     it('must have auth method', async (done) => {
         const {method, ...rest} = makeFakeUser()
-        const UserFactory = makeUser()
 
-        await expect(UserFactory(null, rest))
+        await expect(makeUser(null, rest))
         .rejects
         .toMatchObject({message:"a user must have an auth method"})
         done()
@@ -45,9 +41,8 @@ describe('user entity', () => {
 
     it('must have auth valid method', async (done) => {
         const {method, ...rest} = makeFakeUser()
-        const UserFactory = makeUser()
 
-        await expect(UserFactory("facebook", rest))
+        await expect(makeUser("facebook", rest))
         .rejects
         .toMatchObject({message:"unknown auth method"})
         done()
@@ -74,11 +69,29 @@ describe('user entity', () => {
             ...rest
         }
 
-        const UserFactory = makeUser()
 
-        await expect(UserFactory("local", payload))
+        await expect(makeUser("local", payload))
         .resolves
         .toMatchObject(userLocalMock(payload))
+        done()
+    })
+
+    it('should have valid email', async (done) => {
+        const {firstName, lastName, middleName, password, email, ...rest} = makeFakeUser()
+        
+        const payload = {
+            firstName, 
+            lastName,
+            middleName,
+            password,
+            email: "not-valid",
+            ...rest
+        }
+
+
+        await expect(makeUser("local", payload))
+        .rejects
+        .toMatchObject({message: '"email" must be a valid email'})
         done()
     })
 
