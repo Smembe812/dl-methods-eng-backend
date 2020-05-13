@@ -23,9 +23,21 @@ module.exports = (User) => {
     /**
      * 
      */
-    async function getAll(){
+    async function getAll(options=null){
         try {
-            return await User.findAll()
+            return await User.findAll(options && options.protected ? {
+                attributes: [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "fullName",
+                    "middleName",
+                    "userName",
+                    "avatar",
+                    "createdAt",
+                    "updatedAt"
+                ]
+              } : {})
         } catch (error) {
             return Promise.reject(error)
         }

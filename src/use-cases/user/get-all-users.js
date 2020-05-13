@@ -11,7 +11,7 @@ module.exports = ({service}) => {
      */
     return async function getAllUsers() {
         try {
-            return await service.getAll()
+            return await service.getAll({protected: true})
             
         } catch (error) {
             return Promise.reject(error)
