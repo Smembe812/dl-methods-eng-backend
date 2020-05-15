@@ -26,7 +26,7 @@ module.exports = ({service, getByIDUser, UError}) => {
 
             // patch user with update data
             const {createdAt, updatedAt, local, google, fullName, ...userToUpdate} = Object.assign(dataValues, rest)
-            
+
             // validate patched user
             const {...validUser} = await makeUser(userToUpdate.methods, userToUpdate)
 

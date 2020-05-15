@@ -7,12 +7,12 @@ describe('get by id user controller', () => {
         const fakeUser = makeFakeUser()
 
         postUserController({body: {...fakeUser, method: 'local'}})
-            .then(async ({dataValues: {id}, dataValues}) => {
-                const expected = dataValues
+            .then(async ({id, status, ...dataValues}) => {
+                const expected = {id, ...dataValues}
                 const received = await getByIDUserController({
                     params: {id}})
                 
-                expect(received.dataValues).toStrictEqual(expected)
+                expect(received.dataValues).toStrictEqual({methods: "local", ...expected})
                 done()
             })
     })

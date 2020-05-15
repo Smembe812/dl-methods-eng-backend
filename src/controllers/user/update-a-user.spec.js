@@ -9,7 +9,7 @@ describe('update user controller', () => {
         const expectedUser = userLocalMock({...fakeUpdateProps})
 
         
-        const {dataValues} = await postUserController({body: {...fakeUser, method: 'local'}})
+        const {...dataValues} = await postUserController({body: {...fakeUser, method: 'local'}})
         
         const expected  = {
             ...expectedUser,

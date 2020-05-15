@@ -6,7 +6,7 @@ describe('delete user controller', () => {
 
         const fakeUser = makeFakeUser()
         
-        const {dataValues} = await postUserController({body: {...fakeUser, method: "google"}})
+        const {...dataValues} = await postUserController({body: {...fakeUser, method: "google"}})
         
         const deleted = await deleteUserContoller({
             params: {id: dataValues.id}

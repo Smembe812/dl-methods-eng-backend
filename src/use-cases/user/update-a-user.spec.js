@@ -7,7 +7,7 @@ describe('update user use-case', () => {
         const payload2 = makeFakeUser()
 
         try {
-            const {dataValues} = await createUser({method: "local", payload})
+            const {...dataValues} = await createUser({method: "local", payload})
 
             /**
              * construct this object
@@ -56,7 +56,7 @@ describe('update user use-case', () => {
         const payload = makeFakeUser()
         const payload2 = makeFakeUser()
 
-        const {dataValues} = await createUser({method: 'local', payload})
+        const {...dataValues} = await createUser({method: 'local', payload})
 
             /**
              * construct this object
@@ -83,7 +83,7 @@ describe('update user use-case', () => {
         const payload = makeFakeUser()
         const payload2 = makeFakeUser()
 
-        const {dataValues} = await createUser({method: 'local', payload})
+        const {...dataValues} = await createUser({method: 'local', payload})
 
             /**
              * construct this object
@@ -104,11 +104,11 @@ describe('update user use-case', () => {
         done()
     });
 
-    it('must fail if title missing', async (done) => {
+    it('must fail if username missing', async (done) => {
         const payload = makeFakeUser()
         const payload2 = makeFakeUser()
 
-        const {dataValues} = await createUser({method: 'local', payload})
+        const {...dataValues} = await createUser({method: 'local', payload})
 
             /**
              * construct this object
@@ -120,6 +120,7 @@ describe('update user use-case', () => {
                 ...updatePayload
             } = Object.assign(dataValues, payload2, {userName: null})
 
+            
         await expect(updateUser(updatePayload))
             .rejects
             .toMatchObject({message:"a user must have a username"})

@@ -15,9 +15,9 @@ module.exports = ({createUser}) => {
     return async (httpRequest, next) => {
         try {
             const {body: {method, ...payload}} = httpRequest
-            const {dataValues} = await createUser({method, payload})
+            const user = await createUser({method, payload})
     
-            return Promise.resolve({dataValues, status: 201})
+            return Promise.resolve({...user, status: 201})
         } catch (error) {
             return Promise.reject(error)
         }

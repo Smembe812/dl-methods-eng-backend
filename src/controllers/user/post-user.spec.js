@@ -5,23 +5,21 @@ describe('post user controller', () => {
     it('succesfully post new user', async (done) => {
 
         const fakeUser = makeFakeUser()
-        const expected = userLocalMock(fakeUser)
+        const {avatar, firstName, fullName, middleName, userName, lastName} = userLocalMock(fakeUser)
 
-        const {dataValues: {
+        const {
                 id,
                 createdAt,
                 updatedAt,
-                google,
                 ...restOfProps
-            }
         } = await postUserController({body: {method:"local", ...fakeUser}})
 
-        expect({...restOfProps}).toStrictEqual(expected)
+        expect({...restOfProps}).toStrictEqual({status: 201, avatar, firstName, fullName, middleName, userName, lastName})
         done()
     })
     it('should error at faliure', async (done) => {
 
-        const {title, ...restOfProps} = makeFakeUser()
+        const {userName, ...restOfProps} = makeFakeUser()
 
 
         await expect(postUserController({body: {...restOfProps}}))

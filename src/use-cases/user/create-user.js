@@ -24,7 +24,31 @@ module.exports = ({service, bcrypt}) => {
 
             const user = await makeUser(method, {password: hash, ...restOfPayload})
 
-            return await service.createOne(user)
+            const {
+                dataValues: {
+                    id,
+                    firstName, 
+                    lastName, 
+                    fullName, 
+                    middleName, 
+                    userName, 
+                    avatar,
+                    createdAt,
+                    updatedAt
+                }
+            } = await service.createOne(user)
+            
+            return Promise.resolve({
+                id,
+                firstName, 
+                lastName, 
+                fullName, 
+                middleName, 
+                userName, 
+                avatar,
+                createdAt,
+                updatedAt
+            })
             
         } catch (error) {
             return Promise.reject(error)

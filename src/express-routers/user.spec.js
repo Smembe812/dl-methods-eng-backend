@@ -17,23 +17,36 @@ describe('users routes', () => {
 
     it('should post new users', async (done) => {
         const fakeUser = makeFakeUser()
-        const expectado = userLocalMock(fakeUser)
+        const {
+            firstName, 
+            lastName, 
+            fullName, 
+            middleName, 
+            userName, 
+            avatar} = userLocalMock(fakeUser)
         request(server)
             .post('/api/users')
             .send({...fakeUser, method: 'local'})
             .end((error, response) => {
-                const {dataValues: {
+                const {
                     id, 
                     createdAt, 
                     updatedAt,
-                    google,
                     ...userProps
-                }} = response.body
+                } = response.body
                 
 
                 expect(response.statusCode).toBe(201)
                 expect({...userProps})
-                    .toStrictEqual(expectado)
+                    .toStrictEqual({
+                        firstName, 
+                        lastName, 
+                        fullName, 
+                        middleName, 
+                        userName, 
+                        avatar,
+                        status: 201
+                    })
                 done()
             })
     });
@@ -62,24 +75,24 @@ describe('users routes', () => {
             .post('/api/users')
             .send({...fakeUser, method: 'local'})
 
-        const {dataValues: {id}, dataValues} = expected.body
+        const {id, status, ...dataValues} = expected.body
 
-        const received = await request(server).get(`/api/users/${id}`)
+        const {statusCode, body} = await request(server).get(`/api/users/${id}`)
         
-        expect(received.statusCode).toBe(200)
-        expect(received.body).toStrictEqual(dataValues)
+        expect(statusCode).toBe(200)
+        expect(body).toStrictEqual({id, methods:'local', ...dataValues})
         done()
     })
 
     it('should update by id users', async (done) => {
         const fakeUser = makeFakeUser()
         const fakeUserUpdate = makeFakeUser()
-        const expectado = userLocalMock(fakeUserUpdate)
+        const {avatar, firstName, fullName, middleName, userName, lastName} = userLocalMock(fakeUserUpdate)
         request(server)
             .post('/api/users')
             .send({...fakeUser, method: 'local'})
             .then((response)=>{
-                const {dataValues: {id, createdAt}} = response.body
+                const {id, createdAt} = response.body
 
                 request(server)
                 .put(`/api/users/${id}`)
@@ -88,10 +101,10 @@ describe('users routes', () => {
                     const expected = {
                         createdAt,
                         id,
-                        ...expectado
+                        avatar, firstName, fullName, middleName, userName, lastName
                     }
-
-                    const {updatedAt, google, ...received} = response.body.updatedData
+                    console.warn(response.body)
+                    const {updatedAt, google, methods, local, ...received} = response.body.updatedData
                     expect(response.statusCode).toBe(201)
                     expect(received).toStrictEqual(expected)
                     done()
@@ -105,7 +118,7 @@ describe('users routes', () => {
             .post('/api/users')
             .send({...fakeUser, method: 'local'})
             .then((response)=>{
-                const {dataValues: {id, createdAt}} = response.body
+                const {id, createdAt} = response.body
 
                 request(server)
                 .delete(`/api/users/${id}`)
@@ -125,7 +138,7 @@ describe('users routes', () => {
             .post('/api/users')
             .send({...fakeUser, method: 'local'})
             .then((response)=>{
-                const {dataValues: {id, createdAt}} = response.body
+                const {id, createdAt} = response.body
 
                 request(server)
                 .delete(`/api/users/1000`)

@@ -6,7 +6,7 @@ describe('delete user use-case', () => {
         const payload = makeFakeUser()
 
         try {
-            const {dataValues: {id}} = await createUser({method: "local", payload})
+            const {id} = await createUser({method: "local", payload})
 
             const deleted = await deleteUser(id)
             
@@ -23,7 +23,7 @@ describe('delete user use-case', () => {
         const payload = makeFakeUser()
 
         
-        const {dataValues: {id}} = await createUser({method: "local", payload})
+        const {id} = await createUser({method: "local", payload})
 
         
         await expect(deleteUser(100000))

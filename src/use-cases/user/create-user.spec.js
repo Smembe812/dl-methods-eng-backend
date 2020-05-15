@@ -10,26 +10,22 @@ describe('create user use-case', () => {
             fullName, 
             middleName, 
             userName, 
-            methods, 
             avatar
         } = userLocalMock(payload)
 
-        const {dataValues: {
+        const {
             createdAt,
             updatedAt,
             id,
-            google,
-            local,
             ...userProps
-        }} = await createUser({method: "local", payload})
+        } = await createUser({method: "local", payload})
         
         expect(userProps).toStrictEqual({
             firstName, 
             lastName, 
             fullName, 
             middleName, 
-            userName, 
-            methods, 
+            userName,  
             avatar
         })
         

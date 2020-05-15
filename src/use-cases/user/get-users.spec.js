@@ -26,11 +26,11 @@ describe('get users use-cases', () => {
 
         createUser({method: "local", payload})
             .then(async (data) => {
-                const {dataValues:{id}, dataValues} = data
+                const {id, ...dataValues} = data
 
-                const user = await getByIDUser(id)
+                const updated = await getByIDUser(id)
                 
-                expect(dataValues).toStrictEqual((user.dataValues))
+                expect(updated.dataValues).toStrictEqual({id,methods:'local', ...dataValues})
                 done()
 
             })
@@ -41,7 +41,7 @@ describe('get users use-cases', () => {
         
         createUser({method: "local", payload})
             .then(async (data) => {
-                const {dataValues:{id}, dataValues} = data
+                const {id} = data
 
                 await expect(getByIDUser(1000))
                 .rejects

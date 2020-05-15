@@ -54,6 +54,7 @@ module.exports = function (User) {
                         "fullName",
                         "middleName",
                         "userName",
+                        "methods",
                         "avatar",
                         "createdAt",
                         "updatedAt"
