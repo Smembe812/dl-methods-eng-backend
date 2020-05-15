@@ -4,17 +4,34 @@ const {userLocalMock, makeFakeUser} = require('../../../__test__/fixtures')
 describe('create user use-case', () => {
     it('should create new user in db', async (done) => {
         const payload = makeFakeUser()
-        const expected = userLocalMock(payload)
+        const {
+            firstName, 
+            lastName, 
+            fullName, 
+            middleName, 
+            userName, 
+            methods, 
+            avatar
+        } = userLocalMock(payload)
 
         const {dataValues: {
             createdAt,
             updatedAt,
             id,
             google,
+            local,
             ...userProps
         }} = await createUser({method: "local", payload})
         
-        expect(userProps).toStrictEqual(expected)
+        expect(userProps).toStrictEqual({
+            firstName, 
+            lastName, 
+            fullName, 
+            middleName, 
+            userName, 
+            methods, 
+            avatar
+        })
         
         done()
 

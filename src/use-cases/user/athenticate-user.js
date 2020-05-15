@@ -9,12 +9,12 @@
 module.exports = ({jwt, service, bcrypt, SECRET}) => {
 
     return async function makeAuthenticateUser({password, email}){
-        const {id, userName, local, google} = await service.findOne({local: {email}})
+        const {id, userName, fullName, local, google} = await service.findOne({local: {email}})
 
-        if (local && local.password === password){
+        if (local && bcrypt.compareSync(password, local.password)){
             const token = jwt.sign({sub: id}, SECRET)
 
-            return Promise.resolve({id, token, userName})
+            return Promise.resolve({id, token, userName, fullName})
         }
         
         return Promise.reject({message: "wrong email or password"})

@@ -10,7 +10,7 @@ const SECRET = process.env.JWT_SECRET
 
 const {service} = require('../../data-access/user')
 const buildCreateUser = require('./create-user')
-const createUser = buildCreateUser({service})
+const createUser = buildCreateUser({service, bcrypt})
 
 const makeGetAllUsers = require('./get-all-users') 
 const getAllUsers = makeGetAllUsers({service})
