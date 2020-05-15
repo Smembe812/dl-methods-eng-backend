@@ -1,6 +1,6 @@
 const makeUserModel = require('./model')
 const makeUserService = require('./service')
-const {define, ORM} = require('../db/')
+const {define, ORM, Op} = require('../db/')
 
 const {makeFakeUser, userLocalMock} = require('../../../__test__/fixtures/')
 
@@ -109,6 +109,21 @@ describe('user data-access', () => {
         let deleted = await service.deleteOne({id: 10000})
 
         expect(deleted).toStrictEqual(0)
+        done()
+    })
+
+    it('should get user by email', async (done) => {
+        const User = makeUserModel({define, ORM})
+        const service = makeUserService({User, Op})
+
+        const input = makeFakeUser()
+        const dbInput = userLocalMock(input)
+        
+        const {dataValues: { local: {email}}} = await service.createOne(dbInput)
+
+        let {dataValues: {google, createdAt, id, updatedAt, ...user}} = await service.findOne({local: {email}})
+
+        expect((user)).toStrictEqual(dbInput)
         done()
     })
 

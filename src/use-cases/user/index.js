@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 const {service} = require('../../data-access/user')
 const buildCreateUser = require('./create-user')
 const createUser = buildCreateUser({service})
@@ -14,12 +17,16 @@ const updateUser = makeUpdateUser({service, getByIDUser, UError})
 const makeDeleteUser = require('./delete-a-user')
 const deleteUser = makeDeleteUser({service, getByIDUser, UError})
 
+const makeAuthenticateUser = require('./athenticate-user')
+const authenticateUser = makeAuthenticateUser({service, jwt, bcrypt})
+
 module.exports = {
     createUser,
     getAllUsers,
     getByIDUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    authenticateUser
 }
 
 function UError(message, options = {}){

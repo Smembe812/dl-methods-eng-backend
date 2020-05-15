@@ -142,4 +142,6 @@ describe('users routes', () => {
                 })
             })
     })
+
+    it.todo("should authenticate user")
 });

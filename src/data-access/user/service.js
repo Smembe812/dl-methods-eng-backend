@@ -6,7 +6,7 @@
  * @returns {function}
  * @namespace User
  */
-module.exports = (User) => {
+module.exports = function ({User, Op}) {
     /**
      * @param {object} input - user payload obj made from User Entity factory
      * @returns {(Promise<object>|Promise<Error>)} Promise object response from db
@@ -66,6 +66,19 @@ module.exports = (User) => {
         }
     }
 
+    async function findOne(fields, options=null){
+        const where = {
+            ...fields
+        }
+
+        console.warn(fields)
+        try {
+            return await User.findOne({ where })
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     async function updateOne(payload){
         try {
             const {id, ...updateValues } = payload
@@ -98,6 +111,7 @@ module.exports = (User) => {
         getAll,
         getByID,
         updateOne,
-        deleteOne
+        deleteOne,
+        findOne
     })
 }

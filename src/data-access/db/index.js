@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model, QueryTypes } =  require('sequelize')
+const { Sequelize, DataTypes, Model, QueryTypes, Op } =  require('sequelize')
 const db = require('./db')
 
 if (process.env.NODE_ENV !== 'production'){
@@ -21,5 +21,6 @@ module.exports = {
     ORM,
     instance, 
     DataTypes,
-    QueryTypes
+    QueryTypes,
+    Op
 }
