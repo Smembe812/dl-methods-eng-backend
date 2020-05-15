@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+if (process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
+const SECRET = process.env.JWT_SECRET
+
+
 const {service} = require('../../data-access/user')
 const buildCreateUser = require('./create-user')
 const createUser = buildCreateUser({service})
@@ -18,7 +25,7 @@ const makeDeleteUser = require('./delete-a-user')
 const deleteUser = makeDeleteUser({service, getByIDUser, UError})
 
 const makeAuthenticateUser = require('./athenticate-user')
-const authenticateUser = makeAuthenticateUser({service, jwt, bcrypt})
+const authenticateUser = makeAuthenticateUser({service, jwt, bcrypt, SECRET})
 
 module.exports = {
     createUser,

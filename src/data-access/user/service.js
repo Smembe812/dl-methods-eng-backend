@@ -6,7 +6,7 @@
  * @returns {function}
  * @namespace User
  */
-module.exports = function ({User, Op}) {
+module.exports = function (User) {
     /**
      * @param {object} input - user payload obj made from User Entity factory
      * @returns {(Promise<object>|Promise<Error>)} Promise object response from db
@@ -71,7 +71,6 @@ module.exports = function ({User, Op}) {
             ...fields
         }
 
-        console.warn(fields)
         try {
             return await User.findOne({ where })
         } catch (error) {

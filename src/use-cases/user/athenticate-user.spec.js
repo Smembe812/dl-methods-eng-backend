@@ -3,11 +3,22 @@ const {makeFakeUser, userLocalMock} = require('../../../__test__/fixtures')
 
 describe('authenticate user use-case', () => {
     it("must authenticate user", async (done) => {
-        const {password, email, ...user} = makeFakeUser()
-        const fakeUser = userLocalMock({password, email, ...user})
-
-        await expect(authenticateUser({password, email}))
-            .toStrictEqual({fakeUser})
+        const {password, email, ...payload} = makeFakeUser()
+        
+        const createdUser = await createUser(
+            {
+                method: "local", 
+                payload: {
+                    password, 
+                    email, 
+                    ...payload
+                }
+            })
+        
+        const authUser = await authenticateUser({password, email}) 
+        
+        expect(Object(authUser).hasOwnProperty("token"))
+            .toBe(true)
         done()
     })
 });

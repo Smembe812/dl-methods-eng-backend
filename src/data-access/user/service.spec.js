@@ -114,7 +114,7 @@ describe('user data-access', () => {
 
     it('should get user by email', async (done) => {
         const User = makeUserModel({define, ORM})
-        const service = makeUserService({User, Op})
+        const service = makeUserService(User)
 
         const input = makeFakeUser()
         const dbInput = userLocalMock(input)
